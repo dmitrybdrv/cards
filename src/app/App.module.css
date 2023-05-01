@@ -1,0 +1,16 @@
+.app {
+
+}
+
+.toolbar {
+    justify-content: space-between;
+}
+
+.appLogo {
+    max-width: 150px;
+    margin-left: 150px;
+}
+
+.toolbar button {
+ margin-right: 150px;
+}

@@ -9,7 +9,7 @@ export const Root = () => {
                     login
                 </NavLink>
                 <NavLink to={'/registration'} style={{ paddingRight: '10px' }}>
-                    register
+                    registration
                 </NavLink>
                 <NavLink to={'/check-email'} style={{ paddingRight: '10px' }}>
                     check email

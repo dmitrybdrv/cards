@@ -3,7 +3,9 @@
 }
 
 .toolbar {
+    display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .appLogo {
@@ -11,6 +13,12 @@
     margin-left: 150px;
 }
 
-.toolbar button {
- margin-right: 150px;
+.toolbarInfo {
+    display: flex;
+    align-items: center;
+    margin-right: 150px;
+}
+.toolbarInfo img {
+    width: 60px;
+    border-radius: 50%;
 }

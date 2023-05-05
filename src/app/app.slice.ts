@@ -4,7 +4,7 @@ const slice = createSlice({
     name: 'app',
     initialState: {
         error: null as string | null,
-        isLoading: true,
+        isLoading: false,
         isAppInitialized: false,
     },
     reducers: {
@@ -20,7 +20,6 @@ const slice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-
             .addMatcher(
                 (action) => {
                     return action.type.endsWith('/pending')
@@ -35,9 +34,10 @@ const slice = createSlice({
                 },
                 (state) => {
                     state.isLoading = false
+                    state.isAppInitialized = true
                 }
             )
-        /* .addMatcher(
+            .addMatcher(
                 (action) => {
                     return action.type.endsWith('/rejected')
                 },
@@ -49,7 +49,7 @@ const slice = createSlice({
                     state.isLoading = true
                     state.isAppInitialized = true
                 }
-            )*/
+            )
     },
 })
 

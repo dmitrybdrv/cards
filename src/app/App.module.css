@@ -6,19 +6,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
+}
+
+.toolbar button {
+    border-radius: 20px;
+    margin-right: 150px;
 }
 
 .appLogo {
     max-width: 150px;
     margin-left: 150px;
-}
-
-.toolbarInfo {
-    display: flex;
-    align-items: center;
-    margin-right: 150px;
-}
-.toolbarInfo img {
-    width: 60px;
-    border-radius: 50%;
 }

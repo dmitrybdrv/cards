@@ -1,15 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { RequestStatusType } from 'app/app.types'
 
 const slice = createSlice({
     name: 'app',
     initialState: {
         error: null as string | null,
-        isLoading: false,
+        status: 'idle' as RequestStatusType,
         isAppInitialized: false,
     },
     reducers: {
-        setIsLoading: (state, action: PayloadAction<{ isLoading: boolean }>) => {
-            state.isLoading = action.payload.isLoading
+        setIsLoading: (state, action: PayloadAction<{ status: RequestStatusType }>) => {
+            state.status = action.payload.status
         },
         setAppInitialized: (state, action: PayloadAction<{ isAppInitialized: boolean }>) => {
             state.isAppInitialized = action.payload.isAppInitialized
@@ -18,39 +19,7 @@ const slice = createSlice({
             state.error = action.payload.error
         },
     },
-    extraReducers: (builder) => {
-        builder
-            .addMatcher(
-                (action) => {
-                    return action.type.endsWith('/pending')
-                },
-                (state) => {
-                    state.isLoading = true
-                }
-            )
-            .addMatcher(
-                (action) => {
-                    return action.type.endsWith('/fulfilled')
-                },
-                (state) => {
-                    state.isLoading = false
-                    state.isAppInitialized = true
-                }
-            )
-            .addMatcher(
-                (action) => {
-                    return action.type.endsWith('/rejected')
-                },
-                (state, action) => {
-                    if (action.payload) {
-                        state.error = action.payload
-                    }
-                    state.error = 'Some error occurred'
-                    state.isLoading = true
-                    state.isAppInitialized = true
-                }
-            )
-    },
+    extraReducers: (builder) => {},
 })
 
 export const { reducer: appReducer, actions: appAction } = slice

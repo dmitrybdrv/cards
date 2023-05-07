@@ -1,3 +1,4 @@
+import { Visibility, VisibilityOff } from '@mui/icons-material'
 import {
     Button,
     Checkbox,
@@ -6,20 +7,29 @@ import {
     FormGroup,
     FormLabel,
     Grid,
+    IconButton,
+    Input,
+    InputAdornment,
+    InputLabel,
     Paper,
     TextField,
 } from '@mui/material'
 import { useActions } from 'common/hooks'
 import { useAppSelector } from 'common/hooks/useAppSelector'
-import { selectisLoggedIn } from 'features/auth/auth.selector'
+import { selectIsLoggedIn } from 'features/auth/auth.selector'
 import { authThunk } from 'features/auth/auth.slice'
-import React, { FC } from 'react'
+import { FormDataType } from 'features/auth/auth.types'
+import React, { FC, useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { Link, Navigate } from 'react-router-dom'
-import { FormDataType, LoginFormType } from 'features/auth/auth.types'
 
 export const Login: FC = () => {
-    const isLoggedIn = useAppSelector(selectisLoggedIn)
+    const [showPassword, setShowPassword] = useState(false)
+    const handleClickShowPassword = () => setShowPassword((show) => !show)
+    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault()
+    }
+    const isLoggedIn = useAppSelector(selectIsLoggedIn)
     const { login } = useActions(authThunk)
 
     const { register, handleSubmit } = useForm<FormDataType>({
@@ -29,7 +39,7 @@ export const Login: FC = () => {
         },
     })
 
-    const onSubmit: SubmitHandler<LoginFormType> = (data) => {
+    const onSubmit: SubmitHandler<FormDataType> = (data) => {
         const payload = {
             email: data.email,
             password: data.password,
@@ -39,9 +49,8 @@ export const Login: FC = () => {
     }
 
     if (isLoggedIn) {
-        return <Navigate to={'/'} />
+        return <Navigate to={'/profile'} />
     }
-
     return (
         <Grid container justifyContent={'center'} style={{ marginTop: '50px' }}>
             <Paper elevation={6}>
@@ -51,7 +60,7 @@ export const Login: FC = () => {
                     </h2>
 
                     <form onSubmit={handleSubmit(onSubmit)}>
-                        <FormControl style={{ width: '80%' }}>
+                        <FormControl sx={{ width: '30ch' }}>
                             <FormGroup>
                                 <TextField
                                     variant={'standard'}
@@ -63,19 +72,28 @@ export const Login: FC = () => {
                                     })}
                                 />
 
-                                <TextField
-                                    variant={'standard'}
-                                    label={'Password'}
-                                    margin={'normal'}
-                                    type={'password'}
-                                    {...register('password', {
-                                        required: true,
-                                    })}
-                                />
+                                <FormControl sx={{ width: '30ch' }} variant='standard'>
+                                    <InputLabel htmlFor='standard-adornment-password'>Password</InputLabel>
+                                    <Input
+                                        id='standard-adornment-password'
+                                        type={showPassword ? 'text' : 'password'}
+                                        endAdornment={
+                                            <InputAdornment position='end'>
+                                                <IconButton
+                                                    aria-label='toggle password visibility'
+                                                    onClick={handleClickShowPassword}
+                                                    onMouseDown={handleMouseDownPassword}>
+                                                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                                                </IconButton>
+                                            </InputAdornment>
+                                        }
+                                    />
+                                </FormControl>
 
                                 <FormControlLabel
                                     control={<Checkbox />}
                                     label='Remember me'
+                                    style={{ marginTop: '20px' }}
                                     {...register('rememberMe', {})}
                                 />
 
@@ -84,20 +102,20 @@ export const Login: FC = () => {
                                 </FormLabel>
 
                                 <Button
-                                    style={{ marginTop: '20px', borderRadius: '20px' }}
+                                    style={{ marginTop: '40px', borderRadius: '20px' }}
                                     type={'submit'}
                                     variant={'contained'}
-                                    disabled={false} /*если не валидные поля то true*/
+                                    disabled={false}
                                     color={'primary'}>
                                     Log in
                                 </Button>
                             </FormGroup>
-                            <FormLabel style={{ marginTop: '20px' }}>
+                            <FormLabel style={{ marginTop: '30px' }}>
                                 <p>Don`t have an account?</p>
                             </FormLabel>
 
                             <FormLabel style={{ marginTop: '20px' }}>
-                                <Link to={'/registration'}>Registration</Link>
+                                <Link to={'/auth'}>Registration</Link>
                             </FormLabel>
                         </FormControl>
                     </form>

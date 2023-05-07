@@ -1,4 +1,5 @@
 import { RootState } from 'app/store'
 
-export const selectisLoggedIn = (state: RootState) => state.auth.isLoggedIn
-export const selectUser = (state: RootState) => state.auth.user
+export const selectIsLoggedIn = (state: RootState) => state.auth.isLoggedIn
+export const selectProfile = (state: RootState) => state.auth.profile
+export const selectRedirectPath = (state: RootState) => state.auth.redirectPath

@@ -1,29 +1,30 @@
-export type UserType = {
-    created: Date
+export type UserType = Omit<ProfileType, 'token' | 'tokenDeathTime'>
+
+export type ProfileType = {
+    created: string
     email: string
     isAdmin: boolean
     name: string
     publicCardPacksCount: number
     rememberMe: boolean
-    updated: Date
+    updated: string
     verified: boolean
     _id: string
-    avatar?: string
-    error?: string
-}
+    __v: number
 
-export type ResponseRegisterType = {
-    addedUser: UserType
+    token: string
+    tokenDeathTime: number
 }
 
 export type FormDataType = {
     email: string
     password: string
+    passConfirm?: string
     rememberMe?: boolean
     confirmPassword?: string
 }
 
-export type RegisterFormType = Omit<FormDataType, 'rememberMe'>
-export type LoginFormType = Omit<FormDataType, 'confirmPassword'>
-
-export type LoginType = Omit<FormDataType, 'rememberMe'>
+export type ResponseRegisterType = {
+    addedUser: UserType
+}
+export type RedirectPathType = '/' | '/auth' | '/login'

@@ -3,27 +3,29 @@ import Button from '@mui/material/Button'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import style from 'app/App.module.css'
+import { selectProfile } from 'app/app.selector'
 import { useActions } from 'common/hooks'
 import { useAppSelector } from 'common/hooks/useAppSelector'
 import logo from 'common/image/logo.png'
-import { selectisLoggedIn } from 'features/auth/auth.selector'
 import { authThunk } from 'features/auth/auth.slice'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { Outlet } from 'react-router-dom'
 
 function App() {
-    const isLoggedIn = useAppSelector(selectisLoggedIn)
-    const { logout } = useActions(authThunk)
-    const ava = require('common/image/ava.png')
+    const profile = useAppSelector(selectProfile)
+    const { isAuthMe } = useActions(authThunk)
 
-    const logOutHandler = () => {
-        logout()
-    }
+    useEffect(() => {
+        if (profile) {
+        }
+    }, [])
 
     return (
         <div className={style.app}>
             <AppBar position='static' color={'default'}>
-                <Toolbar className={style.toolbar}>
+                <Toolbar>
                     <Typography
+                        className={style.toolbar}
                         variant='h6'
                         noWrap
                         component='a'
@@ -36,23 +38,15 @@ function App() {
                         <div className={style.appLogo}>
                             <img src={logo} alt='app logo' />
                         </div>
-                    </Typography>
-                    {isLoggedIn && (
-                        <div className={style.toolbarInfo}>
-                            <div>
-                                <img src={ava} alt='alternAva' />
-                            </div>
-
-                            <div>
-                                <Button color='inherit' onClick={logOutHandler}>
-                                    LOGOUT
-                                </Button>
-                            </div>
+                        <div>
+                            <Button variant={'contained'} size={'small'}>
+                                LogIN
+                            </Button>
                         </div>
-                    )}
+                    </Typography>
                 </Toolbar>
             </AppBar>
-            {/*{!isAppInitialized && <LinearProgress color='primary' />}*/}
+            <Outlet />
         </div>
     )
 }

@@ -1,17 +1,17 @@
 import { instance } from 'common/api'
-import { FormDataType, LoginType, ResponseRegisterType, UserType } from './auth.types'
+import { FormDataType, ProfileType, ResponseRegisterType, UserType } from './auth.types'
 
 export const authApi = {
-    registration(data: LoginType) {
+    registration(data: FormDataType) {
         return instance.post<ResponseRegisterType>(`/auth/register`, data)
     },
 
     me() {
-        return instance.post<UserType>(`/auth/me`)
+        return instance.post(`/auth/me`)
     },
 
     login(data: FormDataType) {
-        return instance.post<UserType>(`/auth/login`, data)
+        return instance.post<ProfileType>(`/auth/login`, data)
     },
 
     logout() {

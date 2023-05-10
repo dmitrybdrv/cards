@@ -1,5 +1,5 @@
 import { instance } from 'common/api'
-import { FormDataType, ProfileType, ResponseRegisterType, UserType } from './auth.types'
+import { FormDataType, ProfileType, ResponseRegisterType } from './auth.types'
 
 export const authApi = {
     registration(data: FormDataType) {

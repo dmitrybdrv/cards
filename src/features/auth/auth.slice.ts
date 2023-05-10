@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import { appAction } from 'app/app.slice'
 import { createAppAsyncThunk } from 'common/utils'
 import { authApi } from 'features/auth/auth.api'
@@ -29,17 +29,14 @@ const login = createAppAsyncThunk<{ profile: ProfileType }, FormDataType>(
     }
 )
 
-const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, void>(
-    'auth/logout',
-    async (_, { dispatch, rejectWithValue }) => {
-        try {
-            await authApi.logout()
-            return { isLoggedIn: false }
-        } catch (e) {
-            return rejectWithValue(e)
-        }
+const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, void>('auth/logout', async (_, { rejectWithValue }) => {
+    try {
+        await authApi.logout()
+        return { isLoggedIn: false }
+    } catch (e) {
+        return rejectWithValue(e)
     }
-)
+})
 
 const isAuthMe = createAppAsyncThunk<any, void>('auth/isAuthMe', async (_, { dispatch, rejectWithValue }) => {
     try {
@@ -72,6 +69,7 @@ const slice = createSlice({
             })
             .addCase(login.fulfilled, (state, action) => {
                 state.profile = action.payload.profile
+                state.isLoggedIn = true
             })
             .addCase(logout.fulfilled, (state, action) => {
                 state.isLoggedIn = action.payload.isLoggedIn
@@ -83,4 +81,4 @@ const slice = createSlice({
 })
 
 export const { reducer: authReducer, actions: authAction } = slice
-export const authThunk = { registration, login, logout, isAuthMe }
+export const authThunk = { isAuthMe, login, logout, registration }

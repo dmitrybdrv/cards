@@ -18,3 +18,9 @@
     max-width: 150px;
     margin-left: 150px;
 }
+
+.appContent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

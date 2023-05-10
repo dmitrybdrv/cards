@@ -1,126 +1,110 @@
-import { Visibility, VisibilityOff } from '@mui/icons-material'
-import {
-    Button,
-    Checkbox,
-    FormControl,
-    FormControlLabel,
-    FormGroup,
-    FormLabel,
-    Grid,
-    IconButton,
-    Input,
-    InputAdornment,
-    InputLabel,
-    Paper,
-    TextField,
-} from '@mui/material'
+import { Button, FormGroup } from '@mui/material'
+import Checkbox from '@mui/material/Checkbox'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import TextField from '@mui/material/TextField'
+import Typography from '@mui/material/Typography'
+import { emailValidation, passwordValidation } from 'common/components/validation/vlidation'
 import { useActions } from 'common/hooks'
 import { useAppSelector } from 'common/hooks/useAppSelector'
 import { selectIsLoggedIn } from 'features/auth/auth.selector'
 import { authThunk } from 'features/auth/auth.slice'
 import { FormDataType } from 'features/auth/auth.types'
-import React, { FC, useEffect, useState } from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { Link, Navigate } from 'react-router-dom'
+import React, { FC } from 'react'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { Link, useNavigate } from 'react-router-dom'
+import style from './style.module.scss'
 
 export const Login: FC = () => {
-    const [showPassword, setShowPassword] = useState(false)
-    const handleClickShowPassword = () => setShowPassword((show) => !show)
-    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault()
-    }
-    const isLoggedIn = useAppSelector(selectIsLoggedIn)
-    const { login } = useActions(authThunk)
-
-    const { register, handleSubmit } = useForm<FormDataType>({
+    const {
+        control,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<FormDataType>({
         defaultValues: {
             email: '',
             password: '',
+            rememberMe: false,
         },
     })
+    const navigate = useNavigate()
+    const isLoggedIn = useAppSelector(selectIsLoggedIn)
+    const { login } = useActions(authThunk)
 
-    const onSubmit: SubmitHandler<FormDataType> = (data) => {
-        const payload = {
-            email: data.email,
-            password: data.password,
-            rememberMe: data.rememberMe,
-        }
-        login(payload)
+    const onSubmitting: SubmitHandler<FormDataType> = (data) => {
+        login(data)
     }
 
     if (isLoggedIn) {
-        return <Navigate to={'/profile'} />
+        navigate('/profile')
     }
     return (
-        <Grid container justifyContent={'center'} style={{ marginTop: '50px' }}>
-            <Paper elevation={6}>
-                <Grid item style={{ width: '350px', textAlign: 'center', paddingTop: '20px', paddingBottom: '20px' }}>
-                    <h2>
-                        <strong>Login</strong>
-                    </h2>
+        <div className={style.formContainer}>
+            <form onSubmit={handleSubmit(onSubmitting)} className={style.loginForm}>
+                <Typography variant='h4'>{'Login'}</Typography>
+                <FormGroup>
+                    <Controller
+                        name={'email'}
+                        control={control}
+                        rules={emailValidation}
+                        render={({ field }) => (
+                            <TextField
+                                label={'Email'}
+                                type={'email'}
+                                variant='standard'
+                                margin={'normal'}
+                                value={field.value}
+                                onChange={(e) => field.onChange(e)}
+                                error={!!errors.email}
+                                helperText={errors.email?.message}
+                            />
+                        )}
+                    />
 
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <FormControl sx={{ width: '30ch' }}>
-                            <FormGroup>
-                                <TextField
-                                    variant={'standard'}
-                                    label={'Email'}
-                                    margin={'normal'}
-                                    type={'email'}
-                                    {...register('email', {
-                                        required: true,
-                                    })}
-                                />
+                    <Controller
+                        control={control}
+                        name={'password'}
+                        rules={passwordValidation}
+                        render={({ field }) => (
+                            <TextField
+                                label={'Password'}
+                                type={'password'}
+                                variant='standard'
+                                margin={'normal'}
+                                value={field.value}
+                                onChange={(e) => field.onChange(e)}
+                                error={!!errors.password}
+                                helperText={errors.password?.message}
+                            />
+                        )}
+                    />
 
-                                <FormControl sx={{ width: '30ch' }} variant='standard'>
-                                    <InputLabel htmlFor='standard-adornment-password'>Password</InputLabel>
-                                    <Input
-                                        id='standard-adornment-password'
-                                        type={showPassword ? 'text' : 'password'}
-                                        endAdornment={
-                                            <InputAdornment position='end'>
-                                                <IconButton
-                                                    aria-label='toggle password visibility'
-                                                    onClick={handleClickShowPassword}
-                                                    onMouseDown={handleMouseDownPassword}>
-                                                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                                                </IconButton>
-                                            </InputAdornment>
-                                        }
-                                    />
-                                </FormControl>
+                    <Controller
+                        name={'rememberMe'}
+                        control={control}
+                        render={({ field }) => (
+                            <FormControlLabel
+                                control={<Checkbox value={field.value} onChange={(e) => field.onChange(e)} />}
+                                label='Remember me'
+                            />
+                        )}
+                    />
 
-                                <FormControlLabel
-                                    control={<Checkbox />}
-                                    label='Remember me'
-                                    style={{ marginTop: '20px' }}
-                                    {...register('rememberMe', {})}
-                                />
+                    <Link to='#' className={style.forgotPassLink}>
+                        Forgot password?
+                    </Link>
 
-                                <FormLabel style={{ marginTop: '20px', marginLeft: '50%' }}>
-                                    <Link to={'/'}>forgot password?</Link>
-                                </FormLabel>
+                    <Button variant='contained' type={'submit'} sx={{ margin: '20px 0', borderRadius: '20px' }}>
+                        {'Login'}
+                    </Button>
 
-                                <Button
-                                    style={{ marginTop: '40px', borderRadius: '20px' }}
-                                    type={'submit'}
-                                    variant={'contained'}
-                                    disabled={false}
-                                    color={'primary'}>
-                                    Log in
-                                </Button>
-                            </FormGroup>
-                            <FormLabel style={{ marginTop: '30px' }}>
-                                <p>Don`t have an account?</p>
-                            </FormLabel>
-
-                            <FormLabel style={{ marginTop: '20px' }}>
-                                <Link to={'/auth'}>Registration</Link>
-                            </FormLabel>
-                        </FormControl>
-                    </form>
-                </Grid>
-            </Paper>
-        </Grid>
+                    <Typography color='text.secondary' variant='body2'>
+                        Don`t have an account?
+                    </Typography>
+                    <Link to='/register' className={style.linkToReg}>
+                        Register
+                    </Link>
+                </FormGroup>
+            </form>
+        </div>
     )
 }

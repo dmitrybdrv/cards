@@ -19,7 +19,6 @@ export type ProfileType = {
 export type FormDataType = {
     email: string
     password: string
-    passConfirm?: string
     rememberMe?: boolean
     confirmPassword?: string
 }
@@ -27,4 +26,4 @@ export type FormDataType = {
 export type ResponseRegisterType = {
     addedUser: UserType
 }
-export type RedirectPathType = '/' | '/auth' | '/login'
+export type RedirectPathType = '/' | '/register' | '/login'

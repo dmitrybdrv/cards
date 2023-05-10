@@ -10,7 +10,6 @@ export const useRedirect = () => {
     const navigate = useNavigate()
 
     if (redirectPath !== '/') {
-        debugger
         navigate(redirectPath)
         dispatch(authAction.clearRedirect())
     }

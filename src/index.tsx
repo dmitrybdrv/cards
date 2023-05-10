@@ -1,20 +1,18 @@
+import '@fontsource/roboto/300.css'
+import '@fontsource/roboto/400.css'
+import '@fontsource/roboto/500.css'
+import '@fontsource/roboto/700.css'
 import App from 'app/App'
 import { store } from 'app/store'
 import { ErrorPage } from 'common/components/error-page/ErrorPage'
-import { CheckEmail } from 'features/auth/components/check-email/CheckEmail'
-import { ForgotPassword } from 'features/auth/components/forgot-pass/ForgotPassword'
-import { SetNewPassword } from 'features/auth/components/set-new-password/setNewPassword'
 import { Login } from 'features/auth/components/login/Login'
-import { Profile } from 'features/auth/components/profile/Profile'
+import { Profile } from 'features/profile/Profile'
 import { Register } from 'features/auth/components/register/Register'
-import { Cards } from 'features/cards/Cards'
-import { Learn } from 'features/cards/learn/Learn'
-import { Packs } from 'features/packs/Packs'
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
-import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import './index.css'
 import reportWebVitals from './reportWebVitals'
 
 const router = createBrowserRouter([
@@ -28,12 +26,12 @@ const router = createBrowserRouter([
                 element: <Profile />,
             },
             {
-                path: '/login',
-                element: <Login />,
+                path: '/register',
+                element: <Register />,
             },
             {
-                path: '/auth',
-                element: <Register />,
+                path: '/login',
+                element: <Login />,
             },
         ],
     },

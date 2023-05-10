@@ -1,104 +1,149 @@
 import { Visibility, VisibilityOff } from '@mui/icons-material'
-import {
-    Button,
-    Checkbox,
-    FormControl,
-    FormControlLabel,
-    FormGroup,
-    FormLabel,
-    Grid,
-    IconButton,
-    Input,
-    InputAdornment,
-    InputLabel,
-    Paper,
-    TextField,
-} from '@mui/material'
+import { Button, FormGroup, IconButton, TextField } from '@mui/material'
+import Typography from '@mui/material/Typography'
+import { confirmPasswordValidation, emailValidation, passwordValidation } from 'common/components/validation/vlidation'
 import { useActions } from 'common/hooks'
-import { useRedirect } from 'common/hooks/useRedirect'
-import { authThunk } from 'features/auth/auth.slice'
+import { useAppSelector } from 'common/hooks/useAppSelector'
+import { selectRedirectPath } from 'features/auth/auth.selector'
+import { authAction, authThunk } from 'features/auth/auth.slice'
 import { FormDataType } from 'features/auth/auth.types'
 import React, { FC, useState } from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Controller, SubmitHandler, useForm, useWatch } from 'react-hook-form'
+import { Link, useNavigate } from 'react-router-dom'
+import style from './style.module.scss'
 
 export const Register: FC = () => {
-    const [visible, setVisible] = useState(false)
-
-    const { registration } = useActions(authThunk)
-    const { register, handleSubmit } = useForm<FormDataType>({
+    const {
+        control,
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors },
+    } = useForm<FormDataType>({
         defaultValues: {
             email: '',
             password: '',
-            passConfirm: '',
+            rememberMe: false,
+            confirmPassword: '',
         },
     })
-    useRedirect()
 
-    const onSubmit: SubmitHandler<FormDataType> = (data) => {
-        registration(data)
+    const navigate = useNavigate()
+    const redirectPath = useAppSelector(selectRedirectPath)
+
+    const { registration } = useActions(authThunk)
+    const { clearRedirect } = useActions(authAction)
+
+    const [showConfirmPass, setShowConfirmPass] = useState(false)
+    const [showPassword, setShowPassword] = useState(false)
+
+    const toggleShowConfirmPass = () => {
+        setShowConfirmPass(!showConfirmPass)
+    }
+    const toggleShowPassword = () => {
+        setShowPassword(!showPassword)
     }
 
+    const onSubmitting: SubmitHandler<FormDataType> = (data) => {
+        //registration(data)
+    }
+
+    if (redirectPath !== '/') {
+        navigate(redirectPath)
+        clearRedirect()
+    }
     return (
-        <Grid container justifyContent={'center'} style={{ marginTop: '50px' }}>
-            <Paper elevation={6}>
-                <Grid item style={{ width: '350px', textAlign: 'center', paddingTop: '20px', paddingBottom: '20px' }}>
-                    <h2>
-                        <strong>Registration</strong>
-                    </h2>
+        <div className={style.formContainer}>
+            <form onSubmit={handleSubmit(onSubmitting)} className={style.registerForm}>
+                <Typography variant='h4'>{'Registration'}</Typography>
+                <FormGroup>
+                    <Controller
+                        name={'email'}
+                        control={control}
+                        rules={emailValidation}
+                        render={({ field }) => (
+                            <TextField
+                                label={'Email'}
+                                type={'email'}
+                                variant='standard'
+                                margin={'normal'}
+                                value={field.value}
+                                onChange={(e) => field.onChange(e)}
+                                error={!!errors.email}
+                                helperText={errors.email?.message}
+                            />
+                        )}
+                    />
 
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <FormControl sx={{ width: '30ch' }}>
-                            <FormGroup>
-                                <FormControl variant='standard'>
-                                    <TextField
-                                        variant={'standard'}
-                                        label={'Email'}
-                                        margin={'normal'}
-                                        type={'email'}
-                                        {...register('email', {
-                                            required: true,
-                                        })}
-                                    />
-                                </FormControl>
+                    <Controller
+                        control={control}
+                        name={'password'}
+                        rules={passwordValidation}
+                        render={({ field }) => (
+                            <TextField
+                                label={'Password'}
+                                type={showPassword ? 'text' : 'password'}
+                                variant='standard'
+                                margin={'normal'}
+                                value={field.value}
+                                onChange={field.onChange}
+                                error={!!errors.password}
+                                helperText={errors.password?.message}
+                                InputProps={{
+                                    endAdornment: (
+                                        <IconButton onClick={toggleShowPassword}>
+                                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                                        </IconButton>
+                                    ),
+                                }}
+                            />
+                        )}
+                    />
 
-                                <FormControl>
-                                    <InputLabel htmlFor='password'>Password</InputLabel>
-                                    <Input
-                                        endAdornment={
-                                            <InputAdornment position='end'>
-                                                <IconButton onClick={() => setVisible(!visible)}>
-                                                    {visible ? <VisibilityOff /> : <Visibility />}
-                                                </IconButton>
-                                            </InputAdornment>
-                                        }
-                                        id={'password'}
-                                        type={visible ? 'text' : 'password'}
-                                        {...register('email', {
-                                            required: true,
-                                        })}
-                                    />
-                                </FormControl>
-                                <Button
-                                    style={{ marginTop: '60px', borderRadius: '20px' }}
-                                    type={'submit'}
-                                    variant={'contained'}
-                                    disabled={false}
-                                    color={'primary'}>
-                                    Register
-                                </Button>
-                            </FormGroup>
-                            <FormLabel style={{ marginTop: '30px' }}>
-                                <p>Already have an account?</p>
-                            </FormLabel>
+                    <Controller
+                        control={control}
+                        name={'confirmPassword'}
+                        rules={confirmPasswordValidation(watch)}
+                        render={({ field }) => (
+                            <TextField
+                                label={'Confirm password'}
+                                type={showConfirmPass ? 'text' : 'password'}
+                                variant='standard'
+                                margin={'normal'}
+                                value={field.value}
+                                onChange={field.onChange}
+                                error={!!errors.confirmPassword}
+                                helperText={errors.confirmPassword?.message}
+                                InputProps={{
+                                    endAdornment: (
+                                        <IconButton onClick={toggleShowConfirmPass}>
+                                            {showConfirmPass ? <VisibilityOff /> : <Visibility />}
+                                        </IconButton>
+                                    ),
+                                }}
+                            />
+                        )}
+                    />
 
-                            <FormLabel style={{ marginTop: '20px' }}>
-                                <Link to={'/login'}>Login</Link>
-                            </FormLabel>
-                        </FormControl>
-                    </form>
-                </Grid>
-            </Paper>
-        </Grid>
+                    <Button
+                        variant='contained'
+                        type={'submit'}
+                        className={style.formButton}
+                        sx={{ margin: '20px 0', borderRadius: '20px' }}>
+                        {'Registr'}
+                    </Button>
+
+                    <div>
+                        <Typography color='text.secondary' variant='body2'>
+                            Already have an account?
+                        </Typography>
+                    </div>
+
+                    <div className={style.linkTo}>
+                        <Link to='/login'>Login</Link>
+                    </div>
+                </FormGroup>
+            </form>
+        </div>
     )
 }

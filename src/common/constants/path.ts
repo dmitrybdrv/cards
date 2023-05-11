@@ -1,5 +1,6 @@
 export const path = {
     MAIN: '/',
+    AUTH: '/auth/',
     LOGIN: '/auth/login',
     REGISTER: '/auth/register',
     CHECK_EMAIL: '/auth/checkEmail',

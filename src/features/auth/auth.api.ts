@@ -1,20 +1,23 @@
 import { instance } from 'common/api'
-import { FormDataType, ProfileType, ResponseRegisterType } from './auth.types'
+import { AuthType, ProfileType, ResponseInfoType } from 'features/auth/auth.types'
 
-export const authApi = {
-    registration(data: FormDataType) {
-        return instance.post<ResponseRegisterType>(`/auth/register`, data)
+export const authAPI = {
+    //TODO проверить типизацию
+
+    authMe() {
+        return instance.post<ProfileType>(`/auth/me`)
     },
 
-    me() {
-        return instance.post(`/auth/me`)
+    register(data: AuthType) {
+        //TODO дописать типизацию
+        return instance.post(`/auth/register`, data)
     },
 
-    login(data: FormDataType) {
+    login(data: AuthType) {
         return instance.post<ProfileType>(`/auth/login`, data)
     },
 
     logout() {
-        return instance.delete(`/auth/me`, {})
+        return instance.delete<ResponseInfoType>(`/auth/me`)
     },
 }

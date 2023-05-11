@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
 
-export const Register: FC = () => {
+export const Main: FC = () => {
     return <div></div>
 }

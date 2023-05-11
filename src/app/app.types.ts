@@ -1,1 +1,1 @@
-export type RequestStatusType = 'idle' | 'loading' | 'failed'
+export type AppStatusType = 'idle' | 'loading' | 'failed'

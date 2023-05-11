@@ -3,6 +3,10 @@ import React, { FC } from 'react'
 type PropsType = {}
 
 export const Profile: FC<PropsType> = ({}) => {
+    /*
+     * запрос за данными пользователя useEffect. т.к если мы тут значит логинизация пройдена
+     * */
+
     return (
         <div>
             <div>

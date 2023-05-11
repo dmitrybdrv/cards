@@ -1,27 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { appAction } from 'app/app.slice'
 import { createAppAsyncThunk } from 'common/utils'
-import { authApi } from 'features/auth/auth.api'
-import { FormDataType, ProfileType, RedirectPathType } from 'features/auth/auth.types'
+import { authAPI } from 'features/auth/auth.api'
+import { AuthType, ProfileType } from 'features/auth/auth.types'
 
-//Thunks
-const registration = createAppAsyncThunk<{ redirectPath: RedirectPathType }, FormDataType>(
-    'auth/registration',
-    async (arg, { rejectWithValue }) => {
-        try {
-            await authApi.registration(arg)
-            return { redirectPath: '/login' }
-        } catch (e) {
-            return rejectWithValue(e)
-        }
+const authMe = createAppAsyncThunk<{ profile: ProfileType }, void>('auth/authMe', async (_, { rejectWithValue }) => {
+    try {
+        const res = await authAPI.authMe()
+        return { profile: res.data }
+    } catch (e) {
+        return rejectWithValue(e)
     }
-)
+})
 
-const login = createAppAsyncThunk<{ profile: ProfileType }, FormDataType>(
+const login = createAppAsyncThunk<{ profile: ProfileType }, AuthType>(
     'auth/login',
     async (arg, { rejectWithValue }) => {
         try {
-            const res = await authApi.login({ email: arg.email, password: arg.password, rememberMe: arg.rememberMe })
+            const res = await authAPI.login(arg)
             return { profile: res.data }
         } catch (e) {
             return rejectWithValue(e)
@@ -29,23 +24,13 @@ const login = createAppAsyncThunk<{ profile: ProfileType }, FormDataType>(
     }
 )
 
-const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, void>('auth/logout', async (_, { rejectWithValue }) => {
+//TODO пофиксить тип any
+const logout = createAppAsyncThunk<any, void>('auth/logout', async (_, { rejectWithValue }) => {
     try {
-        await authApi.logout()
-        return { isLoggedIn: false }
+        const res = await authAPI.logout()
+        return { info: res.data.info }
     } catch (e) {
         return rejectWithValue(e)
-    }
-})
-
-const isAuthMe = createAppAsyncThunk<any, void>('auth/isAuthMe', async (_, { dispatch, rejectWithValue }) => {
-    try {
-        await authApi.me()
-        return { isLoggedIn: true }
-    } catch (e) {
-        return rejectWithValue(e)
-    } finally {
-        dispatch(appAction.setAppInitialized({ isAppInitialized: true }))
     }
 })
 
@@ -53,9 +38,8 @@ const isAuthMe = createAppAsyncThunk<any, void>('auth/isAuthMe', async (_, { dis
 const slice = createSlice({
     name: 'auth',
     initialState: {
-        isLoggedIn: false,
-        redirectPath: '/' as RedirectPathType,
-        profile: null as ProfileType | null,
+        redirectPath: '/',
+        profile: null as null | ProfileType,
     },
     reducers: {
         clearRedirect: (state) => {
@@ -64,21 +48,17 @@ const slice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(registration.fulfilled, (state, action) => {
-                state.redirectPath = action.payload.redirectPath
-            })
             .addCase(login.fulfilled, (state, action) => {
                 state.profile = action.payload.profile
-                state.isLoggedIn = true
             })
-            .addCase(logout.fulfilled, (state, action) => {
-                state.isLoggedIn = action.payload.isLoggedIn
+            .addCase(authMe.fulfilled, (state, action) => {
+                state.profile = action.payload.profile
             })
-            .addCase(isAuthMe.fulfilled, (state, action) => {
-                state.isLoggedIn = action.payload.isLoggedIn
+            .addCase(logout.fulfilled, (state) => {
+                state.profile = null
             })
     },
 })
 
 export const { reducer: authReducer, actions: authAction } = slice
-export const authThunk = { isAuthMe, login, logout, registration }
+export const authThunk = { authMe, login, logout }

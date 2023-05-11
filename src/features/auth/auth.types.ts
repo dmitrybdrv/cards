@@ -1,29 +1,26 @@
-export type UserType = Omit<ProfileType, 'token' | 'tokenDeathTime'>
-
 export type ProfileType = {
-    created: string
-    email: string
-    isAdmin: boolean
-    name: string
-    publicCardPacksCount: number
-    rememberMe: boolean
-    updated: string
-    verified: boolean
     _id: string
-    __v: number
+    email: string
+    name: string
+    avatar?: string
+    publicCardPacksCount: number // количество колод
 
-    token: string
-    tokenDeathTime: number
+    created: Date
+    updated: Date
+    isAdmin: boolean
+    verified: boolean // подтвердил ли почту
+    rememberMe: boolean
+
+    error?: string
 }
 
-export type FormDataType = {
+export type AuthType = {
     email: string
     password: string
     rememberMe?: boolean
-    confirmPassword?: string
 }
 
-export type ResponseRegisterType = {
-    addedUser: UserType
+export type ResponseInfoType = {
+    info: string
+    error: string
 }
-export type RedirectPathType = '/' | '/register' | '/login'

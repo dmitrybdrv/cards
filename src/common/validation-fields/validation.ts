@@ -1,5 +1,5 @@
 import { AuthTypes } from 'features/auth/auth.types'
-import { string } from 'yup'
+import { ref, string } from 'yup'
 import * as yup from 'yup'
 
 let schema = yup.object<AuthTypes>({
@@ -11,6 +11,9 @@ let schema = yup.object<AuthTypes>({
         .required('Title is required')
         .min(4, 'Password should be more than 4 symbol')
         .max(50, 'To much symbols'),
+    confirmPassword: string()
+        .required('Title is required')
+        .oneOf([ref('password'), ''], 'Passwords must match'),
 })
 
 export { schema }

@@ -10,7 +10,6 @@ type PropsType = {
 }
 
 export const EmailInput: FC<PropsType> = ({ register, errors, name }) => {
-    console.log(errors)
     return (
         <TextField
             {...register(name)}

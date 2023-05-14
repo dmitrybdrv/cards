@@ -1,16 +1,18 @@
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { IconButton, InputAdornment, TextField } from '@mui/material'
 import { AuthTypes } from 'features/auth/auth.types'
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { FieldErrors, UseFormRegister } from 'react-hook-form'
 
 type PropsType = {
+    label: string
     register: UseFormRegister<AuthTypes>
     errors: FieldErrors<AuthTypes>
-    name: 'password'
+    watchShowPassword?: string
+    name: 'password' | 'confirmPassword'
 }
 
-export const PasswordInput: FC<PropsType> = ({ name, errors, register }) => {
+export const PasswordInput: FC<PropsType> = ({ name, errors, register, label }) => {
     const [showPassword, setShowPassword] = useState(false)
     const handleTogglePasswordVisibility = () => {
         setShowPassword(!showPassword)
@@ -18,7 +20,7 @@ export const PasswordInput: FC<PropsType> = ({ name, errors, register }) => {
 
     return (
         <TextField
-            label='Password'
+            label={label}
             variant='standard'
             margin={'normal'}
             error={!!errors[name]}

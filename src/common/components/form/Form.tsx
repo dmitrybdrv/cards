@@ -1,5 +1,5 @@
 import { Button, FormGroup, Grid, Paper, Typography } from '@mui/material'
-import React, { FC, FormEventHandler, ReactNode } from 'react'
+import React, { FC, FormEventHandler, PropsWithChildren } from 'react'
 import { Link } from 'react-router-dom'
 
 type PropsType = {
@@ -7,11 +7,10 @@ type PropsType = {
     btnName: string
     description?: string
     link?: { path: string; name: string } | undefined
-    children?: ReactNode
     onSubmit?: FormEventHandler
 }
 
-export const Form: FC<PropsType> = ({ title, children, btnName, description, link, onSubmit }) => {
+export const Form: FC<PropsType & PropsWithChildren> = ({ title, btnName, description, link, onSubmit, children }) => {
     return (
         <Grid container justifyContent='center' style={{ marginTop: '50px' }}>
             <Grid item xs={3}>

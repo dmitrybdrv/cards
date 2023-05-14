@@ -7,7 +7,7 @@ type PropsType = {
     btnName: string
     description?: string
     link?: { path: string; name: string } | undefined
-    onSubmit?: FormEventHandler
+    onSubmit: FormEventHandler
 }
 
 export const Form: FC<PropsType & PropsWithChildren> = ({ title, btnName, description, link, onSubmit, children }) => {

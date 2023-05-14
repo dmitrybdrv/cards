@@ -5,17 +5,19 @@ import { useAuthForm } from 'common/hooks/useAuthForm'
 import React, { FC } from 'react'
 
 export const SignUp: FC = () => {
-    const { register, handleSubmit, errors, onSubmit } = useAuthForm()
+    const { register, handleSubmit, errors, onSubmit } = useAuthForm(['email', 'password'])
 
     return (
         <Form
             title={'Sign up'}
             btnName={'Sign Up'}
-            link={{ path: '/auth/login', name: 'Sign In' }}
             onSubmit={handleSubmit(onSubmit)}
+            link={{ path: '/auth/login', name: 'Sign In' }}
             description={'Already have an account?'}>
             <EmailInput name={'email'} errors={errors} register={register} />
+
             <PasswordInput label={'Password'} name={'password'} errors={errors} register={register} />
+
             <PasswordInput label={'Confirm password'} name={'confirmPassword'} errors={errors} register={register} />
         </Form>
     )

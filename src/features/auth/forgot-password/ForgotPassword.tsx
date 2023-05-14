@@ -4,7 +4,7 @@ import { useAuthForm } from 'common/hooks/useAuthForm'
 import React, { FC } from 'react'
 
 export const ForgotPassword: FC = () => {
-    const { errors, register, onSubmit, handleSubmit } = useAuthForm()
+    const { errors, register, onSubmit, handleSubmit } = useAuthForm(['email', 'password'])
     return (
         <Form
             onSubmit={handleSubmit(onSubmit)}

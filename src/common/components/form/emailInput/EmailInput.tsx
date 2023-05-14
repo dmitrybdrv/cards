@@ -6,7 +6,7 @@ import { FieldErrors, UseFormRegister } from 'react-hook-form'
 type PropsType = {
     register: UseFormRegister<AuthTypes>
     errors: FieldErrors<AuthTypes>
-    name: 'email'
+    name: 'emailSignIn' | 'email'
 }
 
 export const EmailInput: FC<PropsType> = ({ register, errors, name }) => {

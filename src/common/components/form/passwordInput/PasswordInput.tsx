@@ -1,13 +1,13 @@
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { IconButton, InputAdornment, TextField } from '@mui/material'
+import { AuthTypes } from 'features/auth/auth.types'
 import React, { FC, useState } from 'react'
 import { FieldErrors, UseFormRegister } from 'react-hook-form'
 
 type PropsType = {
-    //TODO пофиксить типы
-    register: UseFormRegister<any>
-    errors: FieldErrors<any>
-    name: string
+    register: UseFormRegister<AuthTypes>
+    errors: FieldErrors<AuthTypes>
+    name: 'password'
 }
 
 export const PasswordInput: FC<PropsType> = ({ name, errors, register }) => {
@@ -21,6 +21,7 @@ export const PasswordInput: FC<PropsType> = ({ name, errors, register }) => {
             label='Password'
             variant='standard'
             margin={'normal'}
+            error={!!errors[name]}
             type={showPassword ? 'text' : 'password'}
             InputProps={{
                 endAdornment: (

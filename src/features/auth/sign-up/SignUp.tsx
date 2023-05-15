@@ -5,7 +5,7 @@ import { useAuthForm } from 'common/hooks/useAuthForm'
 import React, { FC } from 'react'
 
 export const SignUp: FC = () => {
-    const { register, handleSubmit, errors, onSubmit } = useAuthForm(['email', 'password'])
+    const { register, handleSubmit, errors, onSubmit } = useAuthForm(['email', 'password', 'confirmPassword'])
 
     return (
         <Form

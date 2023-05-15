@@ -8,9 +8,18 @@ type PropsType = {
     description?: string
     link?: { path: string; name: string } | undefined
     onSubmit: FormEventHandler
+    onButtonRedirect?: string
 }
 
-export const Form: FC<PropsType & PropsWithChildren> = ({ title, btnName, description, link, onSubmit, children }) => {
+export const Form: FC<PropsType & PropsWithChildren> = ({
+    title,
+    btnName,
+    description,
+    link,
+    onSubmit,
+    children,
+    onButtonRedirect,
+}) => {
     return (
         <Grid container justifyContent='center' style={{ marginTop: '50px' }}>
             <Grid item xs={3}>
@@ -28,7 +37,8 @@ export const Form: FC<PropsType & PropsWithChildren> = ({ title, btnName, descri
                             <Button
                                 variant={'contained'}
                                 style={{ margin: '20px 0', borderRadius: '20px' }}
-                                type={'submit'}>
+                                type={onButtonRedirect ? 'button' : 'submit'}
+                                href={onButtonRedirect}>
                                 {btnName}
                             </Button>
 

@@ -13,7 +13,6 @@ export const TypographyField: FC<PropsType> = ({ title }) => {
         <Typography
             component={'h2'}
             style={{
-                fontFamily: 'PoppinsMedium',
                 fontSize: '26px',
                 textAlign: 'center',
                 marginBottom: '10px',

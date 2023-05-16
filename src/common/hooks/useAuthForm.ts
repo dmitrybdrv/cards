@@ -18,9 +18,7 @@ export const useAuthForm = (validateFields: ValidateFieldsType[]) => {
         mode: 'onTouched',
     })
 
-    const onSubmit = (data: AuthTypes) => {
-        console.log(data)
-    }
+    const onSubmit = async (data: AuthTypes) => {}
 
     useEffect(() => {
         register('passwordSignUp')

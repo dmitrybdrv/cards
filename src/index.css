@@ -2,7 +2,9 @@
 @font-face {
     font-family: 'PoppinsExtraLight';
     src: url('common/fonts/AnyConv.com__Poppins-ExtraLight.woff2') format('woff2'),
-    url('common/fonts/AnyConv.com__Poppins-ExtraLight.woff') format('woff');
+    url('common/fonts/AnyConv.com__Poppins-ExtraLight.woff') format('woff'),
+    url('common/fonts/AnyConv.com__Poppins-ExtraLight.eot') format('embedded-opentype'),
+    url('common/fonts/Poppins-ExtraLight.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -11,7 +13,9 @@
 @font-face {
     font-family: 'PoppinsMedium';
     src: url('common/fonts/AnyConv.com__Poppins-Medium.woff2') format('woff2'),
-    url('common/fonts/AnyConv.com__Poppins-Medium.woff') format('woff');
+    url('common/fonts/AnyConv.com__Poppins-Medium.woff') format('woff'),
+    url('common/fonts/AnyConv.com__Poppins-Medium.eot') format('embedded-opentype'),
+    url('common/fonts/Poppins-Medium.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -43,7 +47,6 @@ ol,
 ul {
     margin: 0;
     padding: 0;
-    font-family: 'PoppinsExtraLight', 'PoppinsMedium', sans-serif;
 }
 
 ol,
@@ -59,6 +62,7 @@ img {
 /*================================================================================*/
 
 body {
+    font-family: 'Book Antiqua';
     margin: 0;
     background: #f3f3f3;
 }

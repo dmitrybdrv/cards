@@ -9,5 +9,8 @@ export const useHelpingSelectors = () => {
     const appStatus = useAppSelector((state) => state.app.appStatus)
     const appInitializing = useAppSelector((state) => state.app.appInitializing)
 
-    return { appErrors, appInfo, appStatus, appInitializing }
+    const profile = useAppSelector((state) => state.auth.profile)
+    const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
+
+    return { appErrors, appInfo, appStatus, appInitializing, profile, isLoggedIn }
 }

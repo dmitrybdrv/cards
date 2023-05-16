@@ -1,10 +1,11 @@
+import { useHelpingSelectors } from 'common/hooks'
 import React, { FC } from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
 
 /**
- * Компонент MainHoc (обёртка), отображающий компонент маршрутизации в зависимости от того, авторизован ли пользователь.
+ * MainHoc компонент (обёртка), отображающий маршрутизацию в зависимости от параметра авторизации.
  */
 export const MainHoc: FC = () => {
-    const isUserLogin = false
-    return isUserLogin ? <Outlet /> : <Navigate to={'/auth/login'} />
+    const { isLoggedIn } = useHelpingSelectors()
+    return isLoggedIn ? <Outlet /> : <Navigate to={'/auth/login'} />
 }

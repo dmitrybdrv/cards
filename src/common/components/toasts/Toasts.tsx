@@ -8,7 +8,7 @@ import { toast, ToastContainer } from 'react-toastify'
 export const Toasts: FC = () => {
     const { appErrors, appInfo } = useHelpingSelectors()
 
-    const notify = (errors: string | null, info: string | null) => {
+    const notify = (errors: any, info: string | null) => {
         if (errors) {
             return toast.error(errors)
         }

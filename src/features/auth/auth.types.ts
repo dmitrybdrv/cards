@@ -1,5 +1,5 @@
 /**
- * AuthTypes - типизация валидируемых
+ * AuthTypes - типизация валидируемых параметров
  */
 export type AuthTypes = {
     emailSignUp: string

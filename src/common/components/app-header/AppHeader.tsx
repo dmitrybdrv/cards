@@ -1,9 +1,10 @@
-import { AppBar } from '@mui/material'
-import Toolbar from '@mui/material/Toolbar'
-import Typography from '@mui/material/Typography'
+import { AppBar, Toolbar, Typography } from '@mui/material'
 import logo from 'common/image/logo.png'
 import React, { FC } from 'react'
 
+/**
+ * Компонент AppHeader, отображающий заголовок всего приложения.
+ */
 export const AppHeader: FC = () => {
     return (
         <AppBar position='static' color={'default'}>

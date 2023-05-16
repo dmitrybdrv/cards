@@ -1,12 +1,12 @@
 import { Typography } from '@mui/material'
-import { Form } from 'common/components/form/Form'
-import { PasswordInput } from 'common/components/form/passwordInput/PasswordInput'
+import { Form, PasswordInput } from 'common/components'
 import { useAuthForm } from 'common/hooks/useAuthForm'
 import React, { FC } from 'react'
 
-type PropsType = {}
-
-export const CreateNewPassword: FC<PropsType> = ({}) => {
+/**
+ * CreateNewPassword - компонет - форма создания нового пароля
+ */
+export const CreateNewPassword: FC = () => {
     const { errors, register, onSubmit, handleSubmit } = useAuthForm(['password'])
     return (
         <Form onSubmit={handleSubmit(onSubmit)} title={'Create new password'} btnName={'Create new password'}>

@@ -1,8 +1,10 @@
-import { EmailInput } from 'common/components/form/emailInput/EmailInput'
-import { Form } from 'common/components/form/Form'
+import { EmailInput, Form } from 'common/components'
 import { useAuthForm } from 'common/hooks/useAuthForm'
 import React, { FC } from 'react'
 
+/**
+ * ForgotPassword - компонет отправки инструкции по восстановлению пароля
+ */
 export const ForgotPassword: FC = () => {
     const { errors, register, onSubmit, handleSubmit } = useAuthForm(['email'])
     return (

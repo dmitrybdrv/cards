@@ -1,13 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { StatusType } from 'app/app.types'
+import { StatusType, StringNullType } from 'app/app.types'
 
+/**
+ * appReducer - Slice состояния приложения (App)
+ */
 const slice = createSlice({
     name: 'app',
     initialState: {
-        errors: '',
-        infoText: '',
-        initialize: false,
-        status: 'idle' as StatusType,
+        appErrors: null as StringNullType,
+        appInfo: null as StringNullType,
+        appInitializing: false as boolean,
+        appStatus: 'idle' as StatusType,
     },
     reducers: {},
 })

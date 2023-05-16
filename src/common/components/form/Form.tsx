@@ -1,6 +1,9 @@
-import { Button, FormGroup, Grid, Paper, Typography } from '@mui/material'
+import { FormGroup, Grid, Paper } from '@mui/material'
+import { AnnotationField } from 'common/components/form/anotation-field/AnotationField'
+import { Btn } from 'common/components/form/button/Btn'
+import { LinkField } from 'common/components/form/link-field/LinkField'
+import { TypographyField } from 'common/components/form/typography-field/TypographyField'
 import React, { FC, FormEventHandler, PropsWithChildren } from 'react'
-import { Link } from 'react-router-dom'
 
 type PropsType = {
     title: string
@@ -10,7 +13,16 @@ type PropsType = {
     onSubmit: FormEventHandler
     onButtonRedirect?: string
 }
-
+/**
+ * Form - принимает на вход набор свойств, описывающих форму, и дочерние компоненты, которые будут отображаться внутри формы.
+ * @param title - заголовок формы
+ * @param btnName - имя кнопки
+ * @param description - текст - описание чего либо в форме (опционально)
+ * @param {path: string; name: string} link - ссылка на переданный путь (опционально)
+ * @param onSubmit - функция отправки формы
+ * @param children - дочерние компоненты формы
+ * @param onButtonRedirect - строка - ссылка в формате строки для перенаправлении по клику на кнопку (опционально)
+ */
 export const Form: FC<PropsType & PropsWithChildren> = ({
     title,
     btnName,
@@ -24,38 +36,14 @@ export const Form: FC<PropsType & PropsWithChildren> = ({
         <Grid container justifyContent='center' style={{ marginTop: '50px' }}>
             <Grid item xs={3}>
                 <Paper elevation={3} style={{ padding: '30px' }}>
-                    <Typography
-                        component={'h2'}
-                        style={{ fontWeight: '600', fontSize: '26px', textAlign: 'center', marginBottom: '10px' }}>
-                        {title}
-                    </Typography>
+                    <TypographyField title={title} />
 
                     <form onSubmit={onSubmit}>
                         <FormGroup>
                             {children}
-
-                            <Button
-                                variant={'contained'}
-                                style={{ margin: '20px 0', borderRadius: '20px' }}
-                                type={onButtonRedirect ? 'button' : 'submit'}
-                                href={onButtonRedirect}>
-                                {btnName}
-                            </Button>
-
-                            <Typography mt={2} align={'center'} style={{ opacity: '0.6', marginBottom: '10px' }}>
-                                {description}
-                            </Typography>
-
-                            <Link
-                                to={link?.path || '/'}
-                                style={{
-                                    width: 'fit-content',
-                                    alignSelf: 'center',
-                                    color: '#366dfd',
-                                    fontWeight: 'bold',
-                                }}>
-                                {link?.name}
-                            </Link>
+                            <Btn btnName={btnName} onButtonRedirect={onButtonRedirect} />
+                            <AnnotationField description={description} />
+                            <LinkField link={link} />
                         </FormGroup>
                     </form>
                 </Paper>

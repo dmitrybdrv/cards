@@ -1,14 +1,17 @@
 import { Checkbox, FormControlLabel } from '@mui/material'
+import { AuthTypes } from 'features/auth'
 import React, { FC } from 'react'
-import { UseFormRegister } from 'react-hook-form'
+import { FieldValues, UseFormRegister } from 'react-hook-form'
 
 type PropsType = {
-    //TODO пофиксить типы
     label: string
-    register: UseFormRegister<any>
+    register: UseFormRegister<AuthTypes & FieldValues>
     name: string
 }
 
+/**
+ * CheckBox - компонент, используется для регистрации поля формы и связывания его со значением чекбокса.
+ */
 export const CheckBox: FC<PropsType> = ({ label, register, name }) => {
     return (
         <FormControlLabel

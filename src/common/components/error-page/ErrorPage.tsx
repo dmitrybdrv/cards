@@ -1,12 +1,14 @@
 import React, { FC } from 'react'
 import { isRouteErrorResponse, useRouteError } from 'react-router-dom'
 
+/**
+ * Компонент ErrorPage, отображающий страницу с ошибкой маршрута.
+ */
 export const ErrorPage: FC = () => {
     let error = useRouteError()
 
+    // Если ошибка является ошибкой маршрута и имеет статус 401, то отображаем специальное сообщение об ошибке
     if (isRouteErrorResponse(error) && error.status === 401) {
-        // the response json is automatically parsed to
-        // `error.data`, you also have access to the status
         return (
             <div>
                 <h1>{error.status}</h1>
@@ -15,8 +17,6 @@ export const ErrorPage: FC = () => {
             </div>
         )
     }
-
-    // rethrow to let the parent error boundary handle it
-    // when it's not a special case for this route
+    // Если ошибка не является специальным случаем для данного маршрута, повторно выбрасываем ошибку, чтобы родительский компонент ошибок мог ее обработать
     throw error
 }

@@ -43,7 +43,7 @@ ol,
 ul {
     margin: 0;
     padding: 0;
-    font-family: 'PoppinsExtraLight', 'PoppinsMedium';
+    font-family: 'PoppinsExtraLight', 'PoppinsMedium', sans-serif;
 }
 
 ol,

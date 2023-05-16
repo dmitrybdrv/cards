@@ -1,25 +1,28 @@
-import { useHelpSelectors } from 'common/hooks/useHelpSelectors'
+import { useHelpingSelectors } from 'common/hooks/useHelpingSelectors'
 import React, { FC } from 'react'
 import { toast, ToastContainer } from 'react-toastify'
 
+/**
+ * Toasts - компонент - всплывающие уведомления
+ */
 export const Toasts: FC = () => {
-    const { errors, infoText } = useHelpSelectors()
+    const { appErrors, appInfo } = useHelpingSelectors()
 
-    const notify = (errors: string, infoText: string) => {
+    const notify = (errors: string | null, info: string | null) => {
         if (errors) {
             return toast.error(errors)
         }
-        if (infoText === 'success') {
-            return toast.success('Все загрузилось!')
+        if (info === 'success') {
+            return toast.success('Ок!')
         }
-        if (infoText === 'warning') {
-            return toast.warning('So easy!')
+        if (info === 'warning') {
+            return toast.warning('Beware!')
         }
-        if (infoText === 'info') {
-            return toast.info('Wow so easy!')
+        if (info === 'info') {
+            return toast.info('Attention!')
         }
     }
-    notify(errors, infoText)
+    notify(appErrors, appInfo)
     return (
         <ToastContainer
             position='bottom-center'

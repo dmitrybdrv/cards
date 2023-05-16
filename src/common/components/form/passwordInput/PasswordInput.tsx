@@ -1,6 +1,6 @@
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { IconButton, InputAdornment, TextField } from '@mui/material'
-import { AuthTypes } from 'features/auth/auth.types'
+import { AuthTypes } from 'features/auth'
 import React, { FC, useState } from 'react'
 import { FieldErrors, UseFormRegister } from 'react-hook-form'
 
@@ -8,15 +8,14 @@ type PropsType = {
     label: string
     register: UseFormRegister<AuthTypes>
     errors: FieldErrors<AuthTypes>
-    watchShowPassword?: string
-    name: 'password' | 'confirmPassword' | 'passwordSignIn'
+    name: 'passwordSignUp' | 'confirmPassword' | 'passwordSignIn' | 'password'
 }
-
+/**
+ * Компонент PasswordInput, используется для поля формы и связывания его со значением password / пароль.
+ */
 export const PasswordInput: FC<PropsType> = ({ name, errors, register, label }) => {
-    const [showPassword, setShowPassword] = useState(false)
-    const handleTogglePasswordVisibility = () => {
-        setShowPassword(!showPassword)
-    }
+    const [showPassword, setShowPassword] = useState<boolean>(false)
+    const handleTogglePasswordVisibility = () => setShowPassword(!showPassword)
 
     return (
         <TextField

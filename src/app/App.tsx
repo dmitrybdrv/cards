@@ -1,21 +1,22 @@
-import { LinearProgress } from '@mui/material'
-import { AppHeader } from 'common/components'
-import { Toasts } from 'common/components/toasts/Toasts'
-import { useHelpSelectors } from 'common/hooks/useHelpSelectors'
+import { CircularProgress, LinearProgress } from '@mui/material'
 import React from 'react'
-import { Outlet } from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css'
+import { Outlet } from 'react-router-dom'
+import { useHelpingSelectors } from 'common/hooks'
+import { AppHeader, Toasts } from 'common/components'
 
-function App() {
-    const { appStatus } = useHelpSelectors()
+/**
+ * Компонент App, отображающий заголовок приложения, индикаторы загрузки и содержимое маршрутов.
+ */
+export default function App() {
+    const { appStatus, appInitializing } = useHelpingSelectors()
     return (
         <>
             <AppHeader />
-            {appStatus === 'loading' && <LinearProgress />}
+            {appInitializing && <LinearProgress />}
+            {appStatus === 'loading' && <CircularProgress />}
             <Outlet />
             <Toasts />
         </>
     )
 }
-
-export default App

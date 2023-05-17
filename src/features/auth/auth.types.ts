@@ -18,11 +18,12 @@ export type UserType = {
     token: string
     tokenDeathTime: number
 }
-export type DataBaseType = {
+export type DataLoginType = {
     email: string
     password: string
     rememberMe?: boolean
 }
+export type DataRegType = Omit<DataLoginType, 'rememberMe'>
 export type AuthTypes = {
     emailSignUp: string
     passwordSignUp: string

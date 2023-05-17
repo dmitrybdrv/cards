@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useActions } from 'common/hooks/useActions'
 import { getFields, ValidateFieldsType } from 'common/utils'
-import { authThunk, AuthTypes, DataBaseType } from 'features/auth'
+import { authThunk, AuthTypes, DataLoginType } from 'features/auth'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 

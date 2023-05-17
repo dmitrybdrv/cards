@@ -9,7 +9,6 @@ import axios, { AxiosError } from 'axios'
  * @returns {void}
  */
 export const handleServerNetworkError = (e: unknown, dispatch: Dispatch) => {
-    debugger
     const err = e as Error | AxiosError<{ error: string }>
     if (axios.isAxiosError(err)) {
         const error = err.response?.data ? err.response.data.error : 'Some error occurred'

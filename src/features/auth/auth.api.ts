@@ -8,6 +8,9 @@ import { ResponseInfoType, ResponseUserType, UserType } from 'features/auth/auth
  * @return logout - метод - выход пользователя из приложения
  */
 export const authApi = {
+    authMe() {
+        return instance.post(`/auth/me`)
+    },
     register(data: { email: string; password: string }) {
         return instance.post<ResponseUserType>(`/auth/register`, data)
     },

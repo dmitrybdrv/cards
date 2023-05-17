@@ -33,15 +33,17 @@ const slice = createSlice({
                 state.appErrors = null
                 state.appInfo = null
                 state.appStatus = 'loading'
+                state.appInitializing = true
             })
-            //TODO обработать положительное сообщение (приходящие положит сообщ. в документации)
-            .addMatcher(fulfilled, (state, action) => {
-                state.appInfo = action.payload.info
+            .addMatcher(fulfilled, (state) => {
+                state.appInfo = 'xxxxxxxxxxx'
                 state.appStatus = 'idle'
+                state.appInitializing = false
             })
             .addMatcher(rejected, (state, action) => {
                 state.appErrors = action.payload
                 state.appStatus = 'failed'
+                state.appInitializing = false
             })
     },
 })

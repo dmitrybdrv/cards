@@ -11,6 +11,7 @@ export const useHelpingSelectors = () => {
 
     const profile = useAppSelector((state) => state.auth.profile)
     const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
+    const redirect = useAppSelector((state) => state.auth.redirect)
 
-    return { appErrors, appInfo, appStatus, appInitializing, profile, isLoggedIn }
+    return { appErrors, appInfo, appStatus, appInitializing, profile, isLoggedIn, redirect }
 }

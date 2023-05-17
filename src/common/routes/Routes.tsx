@@ -1,14 +1,9 @@
 import App from 'app/App'
+import { path } from 'common/utils'
 import React from 'react'
-import { createHashRouter } from 'react-router-dom'
-import { AuthHoc } from 'common/components/authHoc/AuthHoc'
-import { MainHoc } from 'common/components/authHoc/MainHoc'
-import { ErrorPage } from 'common/components/error-page/ErrorPage'
-import { CheckEmail } from 'features/auth/check-email/CheckEmail'
-import { ForgotPassword } from 'features/auth/forgot-password/ForgotPassword'
-import { CreateNewPassword } from 'features/auth/create-new-password/CreateNewPassword'
-import { SignIn } from 'features/auth/sign-in/SignIn'
-import { SignUp } from 'features/auth/sign-up/SignUp'
+import { createBrowserRouter } from 'react-router-dom'
+import { AuthHoc, ErrorPage, MainHoc } from 'common/components'
+import { CheckEmail, CreateNewPassword, ForgotPassword, SignIn, SignUp } from 'features/auth'
 import { Cards } from 'features/cards/Cards'
 import { Learn } from 'features/learn/Learn'
 import { Packs } from 'features/packs/Packs'
@@ -17,60 +12,59 @@ import { Profile } from 'features/profile/Profile'
 /**
  * router - роутинг всего приложения
  */
-export const router = createHashRouter([
+export const router = createBrowserRouter([
     {
-        path: '/',
+        path: path.MAIN,
         element: <App />,
-
         children: [
             {
-                path: '/',
+                path: path.MAIN,
                 errorElement: <ErrorPage />,
             },
             {
-                path: '/auth/',
+                path: path.AUTH,
                 element: <AuthHoc />,
                 children: [
                     {
-                        path: '/auth/login',
+                        path: path.LOGIN,
                         element: <SignIn />,
                     },
                     {
-                        path: '/auth/register',
+                        path: path.REGISTER,
                         element: <SignUp />,
                     },
                     {
-                        path: '/auth/check-email',
+                        path: path.CHECK_EMAIL,
                         element: <CheckEmail />,
                     },
                     {
-                        path: '/auth/forgot-password',
+                        path: path.FORGOT_PASSWORD,
                         element: <ForgotPassword />,
                     },
                     {
-                        path: '/auth/create-new-password',
+                        path: path.CREATE_NEW_PASSWORD,
                         element: <CreateNewPassword />,
                     },
                 ],
             },
             {
-                path: '/',
+                path: path.MAIN,
                 element: <MainHoc />,
                 children: [
                     {
-                        path: '/packs',
+                        path: path.PACKS,
                         element: <Packs />, //колоды
                     },
                     {
-                        path: '/profile',
+                        path: path.PROFILE,
                         element: <Profile />,
                     },
                     {
-                        path: '/cards',
+                        path: path.CARDS,
                         element: <Cards />,
                     },
                     {
-                        path: '/learn',
+                        path: path.LEARN,
                         element: <Learn />,
                     },
                 ],

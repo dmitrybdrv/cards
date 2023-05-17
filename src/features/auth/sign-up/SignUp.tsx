@@ -1,4 +1,5 @@
 import { EmailInput, Form, PasswordInput } from 'common/components'
+import { useNavigation } from 'common/hooks'
 import { useAuthForm } from 'common/hooks/useAuthForm'
 import React, { FC } from 'react'
 
@@ -12,6 +13,7 @@ export const SignUp: FC = () => {
         'confirmPassword',
     ])
 
+    useNavigation()
     return (
         <Form
             title={'Sign up'}

@@ -1,4 +1,5 @@
 import { CircularProgress, LinearProgress } from '@mui/material'
+import { Circular } from 'common/styles'
 import React from 'react'
 import 'react-toastify/dist/ReactToastify.css'
 import { Outlet } from 'react-router-dom'
@@ -13,9 +14,12 @@ export default function App() {
     return (
         <>
             <AppHeader />
-            {appInitializing && <LinearProgress />}
-            {appStatus === 'loading' && <CircularProgress />}
-            <Outlet />
+            {appInitializing ? <LinearProgress /> : <Outlet />}
+            {appStatus === 'loading' && (
+                <Circular>
+                    <CircularProgress />
+                </Circular>
+            )}
             <Toasts />
         </>
     )

@@ -1,4 +1,4 @@
-import { store } from 'app/store'
+import { store } from 'app'
 import { router } from 'common/routes/Routes'
 import React from 'react'
 import { createRoot } from 'react-dom/client'

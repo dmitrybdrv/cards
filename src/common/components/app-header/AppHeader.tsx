@@ -1,14 +1,19 @@
 import { AppBar, Toolbar, Typography } from '@mui/material'
+import { Btn } from 'common/components/form/button/Btn'
+import { useActions, useHelpingSelectors } from 'common/hooks'
 import logo from 'common/image/logo.png'
+import { authThunk } from 'features/auth'
 import React, { FC } from 'react'
 
 /**
  * Компонент AppHeader, отображающий заголовок всего приложения.
  */
 export const AppHeader: FC = () => {
+    const { profile, isLoggedIn } = useHelpingSelectors()
+    const { logout } = useActions(authThunk)
     return (
         <AppBar position='static' color={'default'}>
-            <Toolbar>
+            <Toolbar style={{ justifyContent: 'space-between' }}>
                 <Typography
                     variant='h6'
                     noWrap
@@ -19,6 +24,7 @@ export const AppHeader: FC = () => {
                         <img src={logo} alt='app logo' />
                     </div>
                 </Typography>
+                {isLoggedIn && <Btn btnName={profile?.email ? profile?.email : 'Some user'} callBack={logout} />}
             </Toolbar>
         </AppBar>
     )

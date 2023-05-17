@@ -6,13 +6,13 @@ import React, { FC } from 'react'
  * SignIn - компонет логинизации в приложении
  */
 export const SignIn: FC = () => {
-    const { register, handleSubmit, errors, onSubmit } = useAuthForm(['emailSignIn', 'passwordSignIn'])
+    const { register, handleSubmit, errors, onLogin } = useAuthForm(['emailSignIn', 'passwordSignIn'])
 
     return (
         <Form
             title={'Sign in'}
             btnName={'Sign in'}
-            onSubmit={handleSubmit(onSubmit)}
+            onSubmit={handleSubmit(onLogin)}
             link={{ path: '/auth/register', name: 'Sign Up' }}
             description={'Don`t have an account?'}>
             <EmailInput register={register} errors={errors} name={'emailSignIn'} />

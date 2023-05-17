@@ -8,18 +8,12 @@ import { toast, ToastContainer } from 'react-toastify'
 export const Toasts: FC = () => {
     const { appErrors, appInfo } = useHelpingSelectors()
 
-    const notify = (errors: any, info: string | null) => {
-        if (errors) {
-            return toast.error(errors)
+    const notify = (appErrors: any, info: string | null) => {
+        if (appErrors) {
+            return toast.error(appErrors)
         }
-        if (info === 'success') {
-            return toast.success('Ок!')
-        }
-        if (info === 'warning') {
-            return toast.warning('Beware!')
-        }
-        if (info === 'info') {
-            return toast.info('Attention!')
+        if (info) {
+            return toast.success(info)
         }
     }
     notify(appErrors, appInfo)

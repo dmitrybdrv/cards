@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useActions } from 'common/hooks/useActions'
 import { getFields, ValidateFieldsType } from 'common/utils'
-import { AuthTypes } from 'features/auth'
+import { authThunk, AuthTypes, DataBaseType } from 'features/auth'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -9,6 +10,8 @@ import { useForm } from 'react-hook-form'
  * @param validateFields
  */
 export const useAuthForm = (validateFields: ValidateFieldsType[]) => {
+    const { registration, login } = useActions(authThunk)
+
     const {
         register,
         handleSubmit,
@@ -18,12 +21,33 @@ export const useAuthForm = (validateFields: ValidateFieldsType[]) => {
         mode: 'onTouched',
     })
 
-    const onSubmit = async (data: AuthTypes) => {}
+    const onSubmit = async (data: AuthTypes) => {
+        const regData = {
+            email: data.emailSignUp,
+            password: data.passwordSignUp,
+        }
+        registration(regData)
+    }
+    const onRegistration = async (data: AuthTypes) => {
+        const regData = {
+            email: data.emailSignUp,
+            password: data.passwordSignUp,
+        }
+        registration(regData)
+    }
+    const onLogin = async (data: AuthTypes) => {
+        const regData = {
+            email: data.emailSignIn,
+            password: data.passwordSignIn,
+            rememberMe: data.rememberMe,
+        }
+        login(regData)
+    }
 
     useEffect(() => {
         register('passwordSignUp')
         register('confirmPassword')
     }, [register])
 
-    return { register, handleSubmit, errors, onSubmit }
+    return { register, handleSubmit, errors, onSubmit, onRegistration, onLogin }
 }

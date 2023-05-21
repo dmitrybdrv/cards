@@ -20,7 +20,7 @@ export const SignIn: FC = () => {
             <PasswordInput label={'Password'} register={register} errors={errors} name={'passwordSignIn'} />
 
             <CheckBox label={'Remember me'} register={register} name={'rememberMe'} />
-            <LinkTo link={{ path: '/', title: 'Forgot password?' }} />
+            <LinkTo link={{ path: '/auth/forgot-password', title: 'Forgot password?' }} />
         </Form>
     )
 }

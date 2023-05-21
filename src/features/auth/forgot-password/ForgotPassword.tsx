@@ -15,7 +15,8 @@ export const ForgotPassword: FC = () => {
             title={'Forgot your password?'}
             btnName={'Send instructions'}
             description={'Enter your Email address and we will send you further instructions'}
-            link={{ path: '/auth/forgot-password', name: 'Try logging in' }}>
+            link={{ path: '/auth/login', name: 'Try logging in' }}>
+
             <EmailInput register={register} errors={errors} name={'email'} />
         </Form>
     )

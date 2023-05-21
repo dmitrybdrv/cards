@@ -53,12 +53,12 @@ const authMe = createAppAsyncThunk<{ profile: UserType }, void>(
     }
 )
 
-const authForgot = createAppAsyncThunk<{ redirect: RedirectType }, ForgotType>(
+const authForgot = createAppAsyncThunk<{ info: string }, ForgotType>(
     'auth/authForgot',
     async (arg, { dispatch, rejectWithValue }) => {
         try {
             await authApi.forgot(arg)
-            return { redirect: path.CHECK_EMAIL }
+            return { info: arg.email }
         } catch (e) {
             const err = handleError(e, dispatch)
             return rejectWithValue(err)
@@ -81,6 +81,9 @@ const slice = createSlice({
         clearRedirect: (state) => {
             state.redirect = '/'
         },
+        clearInfo: (state) => {
+            state.info = ''
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -102,7 +105,8 @@ const slice = createSlice({
             })
 
             .addCase(authForgot.fulfilled, (state, action) => {
-                state.redirect = action.payload.redirect
+                state.redirect = path.CHECK_EMAIL
+                state.info = action.payload.info
             })
     },
 })

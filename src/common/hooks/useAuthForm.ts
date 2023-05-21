@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useActions } from 'common/hooks/useActions'
 import { getFields, ValidateFieldsType } from 'common/utils'
-import { authThunk, AuthTypes, DataLoginType } from 'features/auth'
+import { authThunk, AuthTypes } from 'features/auth'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -37,8 +37,8 @@ export const useAuthForm = (validateFields: ValidateFieldsType[]) => {
         login(regData)
     }
 
+
     const onAuthForgot = (data: AuthTypes) => {
-        debugger
         const newData = {
             email: data.email,
             from: 'test-front-admin <ai73a@yandex.by>',

@@ -2,7 +2,14 @@ import { createSlice } from '@reduxjs/toolkit'
 import { appActions } from 'app'
 import { createAppAsyncThunk, handleError, path } from 'common/utils'
 import { authApi } from 'features/auth/auth.api'
-import {DataLoginType, DataRegType, ForgotType, RedirectType, UserType} from 'features/auth/auth.types'
+import {
+    CreatePassType,
+    DataLoginType,
+    DataRegType,
+    ForgotType,
+    RedirectType,
+    UserType
+} from 'features/auth/auth.types'
 
 const registration = createAppAsyncThunk<{ redirect: RedirectType }, DataRegType>(
     'auth/register',
@@ -20,6 +27,7 @@ const login = createAppAsyncThunk<{ profile: UserType }, DataLoginType>(
     'auth/login',
     async (arg, { dispatch, rejectWithValue }) => {
         try {
+            debugger
             const res = await authApi.login(arg)
             return { profile: res.data }
         } catch (e) {
@@ -65,7 +73,18 @@ const authForgot = createAppAsyncThunk<{ info: string }, ForgotType>(
         }
     }
 )
-
+const createPass = createAppAsyncThunk<{redirect: RedirectType}, CreatePassType>(
+    'auth/createPass',
+    async (arg, { dispatch, rejectWithValue }) => {
+        try {
+            await authApi.createPass(arg)
+            return { redirect: path.LOGIN }
+        } catch (e) {
+            const err = handleError(e, dispatch)
+            return rejectWithValue(err)
+        }
+    }
+)
 /**
  * authReducer - Slice используется для управления состоянием авторизации на веб-странице.
  */
@@ -97,6 +116,7 @@ const slice = createSlice({
 
             .addCase(logout.fulfilled, (state) => {
                 state.profile = null
+                state.isLoggedIn = false
             })
 
             .addCase(authMe.fulfilled, (state, action) => {
@@ -108,9 +128,13 @@ const slice = createSlice({
                 state.redirect = path.CHECK_EMAIL
                 state.info = action.payload.info
             })
+
+            .addCase(createPass.fulfilled, (state, action) => {
+                state.redirect = action.payload.redirect
+            })
     },
 })
 
 
 export const { reducer: authReducer, actions: authActions } = slice
-export const authThunk = { registration, login, logout, authMe, authForgot }
+export const authThunk = { registration, login, logout, authMe, authForgot, createPass }

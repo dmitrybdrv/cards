@@ -42,6 +42,10 @@ export type ResponseInfoType = {
     error: string
 }
 export type ForgotType = {email: string, from?: string, message: string}
+export type CreatePassType = {
+    password: string
+    resetPasswordToken: string
+}
 export type RedirectType =
     | '/'
     | '/auth/login'

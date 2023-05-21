@@ -1,5 +1,12 @@
 import { instance } from 'common/api'
-import {DataLoginType, ForgotType, ResponseInfoType, ResponseUserType, UserType} from 'features/auth/auth.types'
+import {
+    CreatePassType,
+    DataLoginType,
+    ForgotType,
+    ResponseInfoType,
+    ResponseUserType,
+    UserType
+} from 'features/auth/auth.types'
 
 /**
  * authApi - объект с методами для авторизационных запросов
@@ -22,5 +29,8 @@ export const authApi = {
     },
     forgot(data: ForgotType) {
         return instance.post<ResponseInfoType>(`/auth/forgot`, data)
+    },
+    createPass(data: CreatePassType) {
+        return instance.post<ResponseInfoType>(`/auth/set-new-password`, data)
     },
 }

@@ -4,6 +4,7 @@ import { useActions, useHelpingSelectors } from 'common/hooks'
 import logo from 'common/image/logo.png'
 import { authThunk } from 'features/auth'
 import React, { FC } from 'react'
+import { path } from 'common/utils'
 
 /**
  * Компонент AppHeader, отображающий заголовок всего приложения.
@@ -11,6 +12,7 @@ import React, { FC } from 'react'
 export const AppHeader: FC = () => {
     const { profile, isLoggedIn } = useHelpingSelectors()
     const { logout } = useActions(authThunk)
+    const profileEmail = profile?.email ? profile?.email : 'Incorrect data'
     return (
         <AppBar position='static' color={'default'}>
             <Toolbar style={{ justifyContent: 'space-between' }}>
@@ -24,7 +26,9 @@ export const AppHeader: FC = () => {
                         <img src={logo} alt='app logo' />
                     </div>
                 </Typography>
-                {isLoggedIn && <Btn btnName={profile?.email ? profile?.email : 'Some user'} callBack={logout} />}
+                {isLoggedIn
+                    ? <Btn btnName={profileEmail} callBack={logout}/>
+                    : <Btn btnName={'SignIN'} onButtonRedirect={path.LOGIN}/>}
             </Toolbar>
         </AppBar>
     )

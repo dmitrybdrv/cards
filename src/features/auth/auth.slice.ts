@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { appActions } from 'app'
 import { createAppAsyncThunk, handleError, path } from 'common/utils'
 import { authApi } from 'features/auth/auth.api'
-import { DataLoginType, DataRegType, RedirectType, UserType } from 'features/auth/auth.types'
+import {DataLoginType, DataRegType, ForgotType, RedirectType, UserType} from 'features/auth/auth.types'
 
 const registration = createAppAsyncThunk<{ redirect: RedirectType }, DataRegType>(
     'auth/register',
@@ -52,6 +52,20 @@ const authMe = createAppAsyncThunk<{ profile: UserType }, void>(
         }
     }
 )
+
+const authForgot = createAppAsyncThunk<{ redirect: RedirectType }, ForgotType>(
+    'auth/authForgot',
+    async (arg, { dispatch, rejectWithValue }) => {
+        try {
+            await authApi.forgot(arg)
+            return { redirect: path.CHECK_EMAIL }
+        } catch (e) {
+            const err = handleError(e, dispatch)
+            return rejectWithValue(err)
+        }
+    }
+)
+
 /**
  * authReducer - Slice используется для управления состоянием авторизации на веб-странице.
  */
@@ -81,12 +95,18 @@ const slice = createSlice({
             .addCase(logout.fulfilled, (state) => {
                 state.profile = null
             })
+
             .addCase(authMe.fulfilled, (state, action) => {
                 state.profile = action.payload.profile
                 state.isLoggedIn = true
             })
+
+            .addCase(authForgot.fulfilled, (state, action) => {
+                state.redirect = action.payload.redirect
+            })
     },
 })
 
+
 export const { reducer: authReducer, actions: authActions } = slice
-export const authThunk = { registration, login, logout, authMe }
+export const authThunk = { registration, login, logout, authMe, authForgot }

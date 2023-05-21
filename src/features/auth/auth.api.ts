@@ -1,5 +1,5 @@
 import { instance } from 'common/api'
-import { ResponseInfoType, ResponseUserType, UserType } from 'features/auth/auth.types'
+import {DataLoginType, ForgotType, ResponseInfoType, ResponseUserType, UserType} from 'features/auth/auth.types'
 
 /**
  * authApi - объект с методами для авторизационных запросов
@@ -9,15 +9,18 @@ import { ResponseInfoType, ResponseUserType, UserType } from 'features/auth/auth
  */
 export const authApi = {
     authMe() {
-        return instance.post(`/auth/me`)
+        return instance.post<UserType>(`/auth/me`)
     },
-    register(data: { email: string; password: string }) {
+    register(data: DataLoginType) {
         return instance.post<ResponseUserType>(`/auth/register`, data)
     },
-    login(data: { email: string; password: string; rememberMe?: boolean }) {
+    login(data: DataLoginType) {
         return instance.post<UserType>(`/auth/login`, data)
     },
     logout() {
         return instance.delete<ResponseInfoType>(`/auth/me`)
+    },
+    forgot(data: ForgotType) {
+        return instance.post<ResponseInfoType>(`/auth/forgot`, data)
     },
 }

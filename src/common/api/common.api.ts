@@ -6,7 +6,8 @@ import axios from 'axios'
  * @property {boolean} withCredentials - Флаг, указывающий, должны ли отправляться данные аутентификации (например, куки) вместе с запросом.
  */
 export const instance = axios.create({
-    baseURL:
-        process.env.NODE_ENV === 'development' ? 'http://localhost:7542/2.0/' : 'https://neko-back.herokuapp.com/2.0/',
+    baseURL: 'https://neko-back.herokuapp.com/2.0/',
     withCredentials: true,
 })
+/*
+process.env.NODE_ENV === 'development' ? 'http://localhost:7542/2.0/' : */

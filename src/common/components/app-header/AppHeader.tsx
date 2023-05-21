@@ -20,15 +20,14 @@ export const AppHeader: FC = () => {
                     variant='h6'
                     noWrap
                     component='a'
-                    href='/'
                     sx={{ mr: 2, display: { xs: 'none', md: 'flex' }, textDecoration: 'none' }}>
                     <div style={{ width: '150px', marginLeft: '100px' }}>
                         <img src={logo} alt='app logo' />
                     </div>
                 </Typography>
                 {isLoggedIn
-                    ? <Btn btnName={profileEmail} callBack={logout}/>
-                    : <Btn btnName={'SignIN'} onButtonRedirect={path.LOGIN}/>}
+                    ? <div style={{marginRight: '100px'}}><Btn btnName={profileEmail} callBack={logout}/></div>
+                    : <div style={{marginRight: '100px'}}><Btn btnName={'SignIN'} onButtonRedirect={path.LOGIN}/></div>}
             </Toolbar>
         </AppBar>
     )

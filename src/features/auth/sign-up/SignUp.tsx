@@ -7,7 +7,7 @@ import React, { FC } from 'react'
  * SignUp - компонент - регистрация пользователя
  */
 export const SignUp: FC = () => {
-    const { register, handleSubmit, errors, onSubmit } = useAuthForm([
+    const { register, handleSubmit, errors, onRegister } = useAuthForm([
         'emailSignUp',
         'passwordSignUp',
         'confirmPassword',
@@ -18,7 +18,7 @@ export const SignUp: FC = () => {
         <Form
             title={'Sign up'}
             btnName={'Sign Up'}
-            onSubmit={handleSubmit(onSubmit)}
+            onSubmit={handleSubmit(onRegister)}
             link={{ path: '/auth/login', name: 'Sign In' }}
             description={'Already have an account?'}>
             <EmailInput name={'emailSignUp'} errors={errors} register={register} />

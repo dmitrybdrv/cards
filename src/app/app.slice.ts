@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { StatusType, StringNullType } from 'app/app.types'
-import { fulfilled, pending, rejected } from 'common/utils'
 
 /**
  * appReducer - Slice состояния приложения (App)
@@ -29,22 +28,36 @@ const slice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addMatcher(pending, (state) => {
-                state.appErrors = null
-                state.appInfo = null
-                state.appStatus = 'loading'
-                state.appInitializing = true
-            })
-            .addMatcher(fulfilled, (state) => {
-                state.appInfo = 'xxxxxxxxxxx'
-                state.appStatus = 'idle'
-                state.appInitializing = false
-            })
-            .addMatcher(rejected, (state, action) => {
-                state.appErrors = action.payload
-                state.appStatus = 'failed'
-                state.appInitializing = false
-            })
+            .addMatcher(
+                (action) => {
+                    return action.type.endsWith('pending')
+                },
+                (state, action) => {
+                    state.appInfo = null
+                    state.appStatus = 'loading'
+                    state.appErrors = null
+                }
+            )
+
+            .addMatcher(
+                (action) => {
+                    return action.type.endsWith('fulfilled')
+                },
+                (state, action) => {
+                    state.appStatus = 'idle'
+                    state.appInitializing = true
+                }
+            )
+
+            .addMatcher(
+                (action) => {
+                    return action.type.endsWith('rejected')
+                },
+                (state, action) => {
+                    state.appStatus = 'failed'
+                    state.appInitializing = true
+                }
+            )
     },
 })
 

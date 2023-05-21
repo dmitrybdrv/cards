@@ -6,10 +6,10 @@ import React, { FC } from 'react'
  * ForgotPassword - компонет отправки инструкции по восстановлению пароля
  */
 export const ForgotPassword: FC = () => {
-    const { errors, register, onSubmit, handleSubmit } = useAuthForm(['email'])
+    const { errors, register, handleSubmit } = useAuthForm(['email'])
     return (
         <Form
-            onSubmit={handleSubmit(onSubmit)}
+            onSubmit={handleSubmit(() => {})}
             title={'Forgot your password?'}
             btnName={'Send instructions'}
             description={'Enter your Email address and we will send you further instructions'}

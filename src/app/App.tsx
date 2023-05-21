@@ -18,16 +18,15 @@ export default function App() {
         authMe({})
     }, [])
 
-    return (
+    return appInitializing ? (
         <>
             <AppHeader />
-            {appInitializing ? <LinearProgress /> : <Outlet />}
-            {appStatus === 'loading' && (
-                <Circular>
-                    <CircularProgress />
-                </Circular>
-            )}
+            {appStatus === 'loading' ? <LinearProgress /> : <Outlet />}
             <Toasts />
         </>
+    ) : (
+        <Circular>
+            <CircularProgress />
+        </Circular>
     )
 }

@@ -8,14 +8,10 @@ import { checkMail } from 'common/image'
  * CheckEmail - компонент - форма проверки почты (подтвержение отправленной инструкции на почтовый ящик)
  */
 export const CheckEmail: FC = () => {
-    const { handleSubmit, onSubmit } = useAuthForm(['emailSignIn', 'passwordSignIn'])
+    const { handleSubmit } = useAuthForm(['emailSignIn', 'passwordSignIn'])
 
     return (
-        <Form
-            title={'Check Email'}
-            btnName={'Back to login'}
-            onSubmit={handleSubmit(onSubmit)}
-            onButtonRedirect={'#/auth/login'}>
+        <Form title={'Check Email'} btnName={'Back to login'} onSubmit={() => {}} onButtonRedirect={'#/auth/login'}>
             <img
                 src={checkMail}
                 alt='check-email'

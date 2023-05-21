@@ -8,12 +8,12 @@ import axios, { AxiosError } from 'axios'
  * @param {Dispatch} dispatch - Функция dispatch из библиотеки Redux для отправки actions
  * @returns {void}
  */
-export const handleServerNetworkError = (e: unknown, dispatch: Dispatch) => {
+export const handleError = (e: unknown, dispatch: Dispatch) => {
     const err = e as Error | AxiosError<{ error: string }>
     if (axios.isAxiosError(err)) {
         const error = err.response?.data ? err.response.data.error : 'Some error occurred'
-        dispatch(appActions.setAppError({ error }))
+        return { error }
     } else {
-        dispatch(appActions.setAppError({ error: `Native error ${err.message}` }))
+        return { error: `Native error ${err.message}` }
     }
 }

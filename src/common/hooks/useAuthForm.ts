@@ -21,14 +21,7 @@ export const useAuthForm = (validateFields: ValidateFieldsType[]) => {
         mode: 'onTouched',
     })
 
-    const onSubmit = async (data: AuthTypes) => {
-        const regData = {
-            email: data.emailSignUp,
-            password: data.passwordSignUp,
-        }
-        registration(regData)
-    }
-    const onRegistration = async (data: AuthTypes) => {
+    const onRegister = async (data: AuthTypes) => {
         const regData = {
             email: data.emailSignUp,
             password: data.passwordSignUp,
@@ -49,5 +42,5 @@ export const useAuthForm = (validateFields: ValidateFieldsType[]) => {
         register('confirmPassword')
     }, [register])
 
-    return { register, handleSubmit, errors, onSubmit, onRegistration, onLogin }
+    return { register, handleSubmit, errors, onRegister, onLogin }
 }

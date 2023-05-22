@@ -1,8 +1,8 @@
-import App from 'app/App'
-import { path } from 'common/utils'
 import React from 'react'
 import { createBrowserRouter } from 'react-router-dom'
-import { AuthHoc, ErrorPage, MainHoc } from 'common/components'
+import App from 'app/App'
+import { path } from 'common/utils'
+import { AuthProvider, ErrorPage, RequireAuth } from 'common/components'
 import { CheckEmail, CreateNewPassword, ForgotPassword, SignIn, SignUp } from 'features/auth'
 import { Cards } from 'features/cards/Cards'
 import { Learn } from 'features/learn/Learn'
@@ -18,12 +18,12 @@ export const router = createBrowserRouter([
         element: <App />,
         children: [
             {
-                path: path.MAIN,
-                errorElement: <ErrorPage />,
+              path: path.ERROR_PAGE,
+              element:   <ErrorPage />
             },
             {
                 path: path.AUTH,
-                element: <AuthHoc />,
+                element: <AuthProvider />,
                 children: [
                     {
                         path: path.LOGIN,
@@ -49,9 +49,10 @@ export const router = createBrowserRouter([
             },
             {
                 path: path.MAIN,
-                element: <MainHoc />,
+                element: <RequireAuth />,
                 children: [
                     {
+                        index: true,
                         path: path.PACKS,
                         element: <Packs />, //колоды
                     },
@@ -70,5 +71,6 @@ export const router = createBrowserRouter([
                 ],
             },
         ],
+
     },
 ])

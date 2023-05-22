@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { path } from 'common/utils'
 import { RedirectType, UserType } from 'features/auth/auth.types'
 import { authThunk } from './auth.thunk'
 
@@ -13,7 +12,7 @@ const slice = createSlice({
         info: '',
         isLoggedIn: false,
         profile: null as UserType | null,
-        redirect: path.MAIN as RedirectType,
+        redirect: '/' as RedirectType,
     },
     reducers: {
         clearRedirect: (state) => {
@@ -44,7 +43,7 @@ const slice = createSlice({
             })
 
             .addCase(authThunk.authForgot.fulfilled, (state, action) => {
-                state.redirect = path.CHECK_EMAIL
+                state.redirect = '/auth/check-email'
                 state.info = action.payload.info
             })
 

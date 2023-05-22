@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { StatusType, StringNullType } from 'app/app.types'
+import { pending } from 'common/utils'
 
 /**
  * appReducer - Slice состояния приложения (App)
@@ -38,6 +39,9 @@ const slice = createSlice({
                     state.appErrors = null
                 }
             )
+            .addMatcher(pending, () => {
+
+            })
 
             .addMatcher(
                 (action) => {

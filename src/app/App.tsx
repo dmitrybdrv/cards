@@ -1,4 +1,5 @@
 import { CircularProgress, LinearProgress } from '@mui/material'
+import { Layout } from 'common/components/layout/Layout'
 import { Circular } from 'common/styles'
 import { authThunk } from 'features/auth'
 import React, { useEffect } from 'react'

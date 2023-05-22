@@ -13,7 +13,7 @@ type PropsType = {
  * @param {Function} callBack - функция выполняемая по клику (опционально)
  */
 export const Btn: FC<PropsType> = ({ onButtonRedirect, btnName, callBack }) => {
-    //TODO пределать кнопку в полиморфный вариант. clickHandler - удалить
+
     const clickHandler = () => {
         callBack && callBack('')
     }
@@ -28,4 +28,4 @@ export const Btn: FC<PropsType> = ({ onButtonRedirect, btnName, callBack }) => {
         </Button>
     )
 }
-//TODO сделать полиморфным
+//TODO пределать кнопку в полиморфный вариант. clickHandler - удалить

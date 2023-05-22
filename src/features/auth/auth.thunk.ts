@@ -1,4 +1,5 @@
-import { createAppAsyncThunk, handleError, path } from 'common/utils'
+import { createAppAsyncThunk, path } from 'common/utils'
+import { errorHandler } from 'common/utils/errorUtils'
 import { CreatePassType, DataLoginType, DataRegType, ForgotType, RedirectType, UserType } from './auth.types'
 import { authApi } from './auth.api'
 import { appActions } from 'app'
@@ -7,14 +8,15 @@ const registration = createAppAsyncThunk<{ redirect: RedirectType }, DataRegType
     'auth/register',
     async (arg, { dispatch, rejectWithValue }) => {
         try {
-            const res = await authApi.register(arg)
+            await authApi.register(arg)
             return { redirect: path.LOGIN }
         } catch (e) {
-            const err = handleError(e, dispatch)
+            const err = errorHandler(e)
             return rejectWithValue(err)
         }
     }
 )
+
 const login = createAppAsyncThunk<{ profile: UserType }, DataLoginType>(
     'auth/login',
     async (arg, { dispatch, rejectWithValue }) => {
@@ -23,7 +25,7 @@ const login = createAppAsyncThunk<{ profile: UserType }, DataLoginType>(
             const res = await authApi.login(arg)
             return { profile: res.data }
         } catch (e) {
-            const err = handleError(e, dispatch)
+            const err = errorHandler(e)
             return rejectWithValue(err)
         }
     }
@@ -33,7 +35,7 @@ const logout = createAppAsyncThunk<{ info: string }, void>('auth/logout', async 
         const res = await authApi.logout()
         return { info: res.data.info }
     } catch (e) {
-        const err = handleError(e, dispatch)
+        const err = errorHandler(e)
         return rejectWithValue(err)
     }
 })
@@ -45,7 +47,7 @@ const authMe = createAppAsyncThunk<{ profile: UserType }, void>(
             const res = await authApi.authMe()
             return { profile: res.data }
         } catch (e) {
-            const err = handleError(e, dispatch)
+            const err = errorHandler(e)
             return rejectWithValue(err)
         } finally {
             dispatch(appActions.setAppInitializing({ appInitializing: true }))
@@ -60,7 +62,7 @@ const authForgot = createAppAsyncThunk<{ info: string }, ForgotType>(
             await authApi.forgot(arg)
             return { info: arg.email }
         } catch (e) {
-            const err = handleError(e, dispatch)
+            const err = errorHandler(e)
             return rejectWithValue(err)
         }
     }
@@ -72,7 +74,7 @@ const createPass = createAppAsyncThunk<{redirect: RedirectType}, CreatePassType>
             await authApi.createPass(arg)
             return { redirect: path.LOGIN }
         } catch (e) {
-            const err = handleError(e, dispatch)
+            const err = errorHandler(e)
             return rejectWithValue(err)
         }
     }

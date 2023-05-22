@@ -1,3 +1,5 @@
+import { Btn } from 'common/components/form/button/Btn'
+import { path } from 'common/utils'
 import React, { FC } from 'react'
 import { isRouteErrorResponse, useRouteError } from 'react-router-dom'
 
@@ -18,5 +20,11 @@ export const ErrorPage: FC = () => {
         )
     }
     // Если ошибка не является специальным случаем для данного маршрута, повторно выбрасываем ошибку, чтобы родительский компонент ошибок мог ее обработать
-    throw error
+    /*throw error*/
+    return (
+        <div style={{justifyContent: 'center', display: 'grid', marginTop: '150px'}}>
+            <div>Something went wrong :(</div>
+            <div style={{textAlign: 'center'}}><Btn btnName={'fullback'} onButtonRedirect={path.MAIN}/></div>
+        </div>
+    )
 }

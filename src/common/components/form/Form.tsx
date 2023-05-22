@@ -34,7 +34,7 @@ export const Form: FC<PropsType & PropsWithChildren> = ({
 }) => {
     return (
         <Grid container justifyContent='center' style={{ marginTop: '50px' }}>
-            <Grid item xs={3}>
+            <Grid item xs={4}>
                 <Paper elevation={3} style={{ padding: '30px' }}>
                     <TypographyField title={title} />
 

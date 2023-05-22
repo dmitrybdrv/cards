@@ -15,7 +15,7 @@ export const AppHeader: FC = () => {
     const profileEmail = profile?.email ? profile?.email : 'Incorrect data'
     return (
         <AppBar position='static' color={'default'}>
-            <Toolbar style={{ justifyContent: 'space-between' }}>
+            <Toolbar style={{ justifyContent: 'space-between'}}>
                 <Typography
                     variant='h6'
                     noWrap
@@ -27,7 +27,7 @@ export const AppHeader: FC = () => {
                 </Typography>
                 {isLoggedIn
                     ? <div style={{marginRight: '100px'}}><Btn btnName={profileEmail} callBack={logout}/></div>
-                    : <div style={{marginRight: '100px'}}><Btn btnName={'SignIN'} onButtonRedirect={path.LOGIN}/></div>}
+                    : <div style={{marginRight: '100px'}}><Btn btnName={'LOGIN'} onButtonRedirect={path.LOGIN}/></div>}
             </Toolbar>
         </AppBar>
     )

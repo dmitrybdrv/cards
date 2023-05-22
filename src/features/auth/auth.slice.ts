@@ -27,6 +27,7 @@ const slice = createSlice({
             .addCase(authThunk.registration.fulfilled, (state, action) => {
                 state.redirect = action.payload.redirect
             })
+
             .addCase(authThunk.login.fulfilled, (state, action) => {
                 state.profile = action.payload.profile
                 state.isLoggedIn = true
@@ -49,6 +50,10 @@ const slice = createSlice({
 
             .addCase(authThunk.createPass.fulfilled, (state, action) => {
                 state.redirect = action.payload.redirect
+            })
+
+            .addCase(authThunk.updateMe.fulfilled, (state, action) => {
+                state.profile = action.payload.profile
             })
     },
 })

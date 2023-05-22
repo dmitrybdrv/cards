@@ -2,32 +2,33 @@ import { instance } from 'common/api'
 import {
     CreatePassType,
     DataLoginType,
-    ForgotType,
-    ResponseInfoType,
-    ResponseUserType,
-    UserType
+    ForgotPassType,
+    ResponseInfoType, ResponseUpdateUserType,
+    ResponseAddUserType,
+    UserType, DataUpdateType
 } from 'features/auth/auth.types'
 
 /**
  * authApi - объект с методами для авторизационных запросов
- * @return register - метод - регистрация нового пользователя
- * @return login - метод - вход пользователя в приложение
- * @return logout - метод - выход пользователя из приложения
  */
 export const authApi = {
+
+    login(data: DataLoginType) {
+        return instance.post<UserType>(`/auth/login`, data)
+    },
+    register(data: DataLoginType) {
+        return instance.post<ResponseAddUserType>(`/auth/register`, data)
+    },
     authMe() {
         return instance.post<UserType>(`/auth/me`)
     },
-    register(data: DataLoginType) {
-        return instance.post<ResponseUserType>(`/auth/register`, data)
-    },
-    login(data: DataLoginType) {
-        return instance.post<UserType>(`/auth/login`, data)
+    updateMe(data: DataUpdateType) {
+        return instance.put<ResponseUpdateUserType>(`/auth/me`, data)
     },
     logout() {
         return instance.delete<ResponseInfoType>(`/auth/me`)
     },
-    forgot(data: ForgotType) {
+    forgot(data: ForgotPassType) {
         return instance.post<ResponseInfoType>(`/auth/forgot`, data)
     },
     createPass(data: CreatePassType) {

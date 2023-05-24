@@ -4,9 +4,9 @@ import { Circular } from 'common/styles'
 import { authThunk } from 'features/auth'
 import React, { useEffect } from 'react'
 import 'react-toastify/dist/ReactToastify.css'
-import { Outlet } from 'react-router-dom'
 import { useActions, useHelpingSelectors } from 'common/hooks'
 import { AppHeader, Toasts } from 'common/components'
+import { Outlet } from 'react-router-dom'
 
 /**
  * Компонент App, отображающий заголовок приложения, индикаторы загрузки и содержимое маршрутов.
@@ -22,7 +22,7 @@ export default function App() {
     return appInitializing ? (
         <>
             <AppHeader />
-            {appStatus === 'loading' ? <LinearProgress /> : <Outlet />}
+            {appStatus === 'loading' ? <LinearProgress /> : <Layout><Outlet /></Layout>}
             <Toasts />
         </>
     ) : (

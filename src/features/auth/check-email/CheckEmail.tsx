@@ -12,7 +12,7 @@ import { authActions } from '../auth.slice'
 export const CheckEmail: FC = () => {
     const {info} = useHelpingSelectors()
     const {clearInfo} =useActions(authActions)
-    console.log(info)
+
     return (
         <Form title={'Check Email'} btnName={'Back to login'} onSubmit={() => clearInfo()} onButtonRedirect={path.LOGIN}>
             <img

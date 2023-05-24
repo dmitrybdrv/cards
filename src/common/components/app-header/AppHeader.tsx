@@ -1,10 +1,12 @@
-import { AppBar, Toolbar, Typography } from '@mui/material'
+import { AppBar, Avatar, Toolbar, Typography } from '@mui/material'
 import { Btn } from 'common/components/form/button/Btn'
 import { useActions, useHelpingSelectors } from 'common/hooks'
 import logo from 'common/image/logo.png'
 import { authThunk } from 'features/auth'
 import React, { FC } from 'react'
 import { path } from 'common/utils'
+import { ava } from 'common/image'
+import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 
 /**
  * Компонент AppHeader, отображающий заголовок всего приложения.
@@ -12,10 +14,9 @@ import { path } from 'common/utils'
 export const AppHeader: FC = () => {
     const { profile, isLoggedIn } = useHelpingSelectors()
     const { logout } = useActions(authThunk)
-    const profileEmail = profile?.email ? profile?.email : 'Incorrect data'
     return (
         <AppBar position='static' color={'default'}>
-            <Toolbar style={{ justifyContent: 'space-between'}}>
+            <Toolbar style={{ justifyContent: 'space-between' }}>
                 <Typography
                     variant='h6'
                     noWrap
@@ -26,8 +27,14 @@ export const AppHeader: FC = () => {
                     </div>
                 </Typography>
                 {isLoggedIn
-                    ? <div style={{marginRight: '100px'}}><Btn btnName={profileEmail} callBack={logout}/></div>
-                    : <div style={{marginRight: '100px'}}><Btn btnName={'LOGIN'} onButtonRedirect={path.LOGIN}/></div>}
+                    ? <div style={{ marginRight: '100px', display: 'flex', alignItems: 'center' }}>
+                        <span style={{paddingRight: '10px'}}>{profile?.name}</span>
+                        <Avatar alt='profile-avatar' src={ava} sx={{ width: 56, height: 56 }}>
+                            <PermIdentityIcon/>
+                        </Avatar>
+                    </div>
+                    :
+                    <div style={{ marginRight: '100px' }}><Btn btnName={'LOGIN'} onButtonRedirect={path.LOGIN} /></div>}
             </Toolbar>
         </AppBar>
     )

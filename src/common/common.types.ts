@@ -1,0 +1,1 @@
+export type ColorBtnType = '#000' | '#fff'

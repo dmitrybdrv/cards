@@ -1,13 +1,13 @@
-import React from 'react'
-import { createBrowserRouter } from 'react-router-dom'
 import App from 'app/App'
-import { path } from 'common/utils'
 import { AuthProvider, ErrorPage, RequireAuth } from 'common/components'
+import { path } from 'common/utils'
 import { CheckEmail, CreateNewPassword, ForgotPassword, SignIn, SignUp } from 'features/auth'
 import { Cards } from 'features/cards/Cards'
 import { Learn } from 'features/learn/Learn'
 import { Packs } from 'features/packs/Packs'
-import { Profile } from 'features/profile/Profile'
+import { Profile } from 'common/components/profile/Profile'
+import React from 'react'
+import { createBrowserRouter } from 'react-router-dom'
 
 /**
  * router - роутинг всего приложения
@@ -16,11 +16,8 @@ export const router = createBrowserRouter([
     {
         path: path.MAIN,
         element: <App />,
+        errorElement: <ErrorPage/>,
         children: [
-            {
-              path: path.ERROR_PAGE,
-              element:   <ErrorPage />
-            },
             {
                 path: path.AUTH,
                 element: <AuthProvider />,
@@ -52,7 +49,6 @@ export const router = createBrowserRouter([
                 element: <RequireAuth />,
                 children: [
                     {
-                        index: true,
                         path: path.PACKS,
                         element: <Packs />, //колоды
                     },

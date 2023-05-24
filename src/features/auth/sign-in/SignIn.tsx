@@ -20,7 +20,16 @@ export const SignIn: FC = () => {
             <PasswordInput label={'Password'} register={register} errors={errors} name={'passwordSignIn'} />
 
             <CheckBox label={'Remember me'} register={register} name={'rememberMe'} />
-            <LinkTo link={{ path: '/auth/forgot-password', title: 'Forgot password?' }} />
+            <LinkTo link={{ path: '/auth/forgot-password', title: 'Forgot password?' }}
+                    style={{
+                        marginBottom: '20px',
+                        width: 'fit-content',
+                        alignSelf: 'flex-end',
+                        textDecoration: 'none',
+                        color: '#000',
+                        fontWeight: '500'
+                    }} />
         </Form>
     )
 }
+//TODO обернуть необходимые функции в useCallBack и memo

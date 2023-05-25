@@ -1,5 +1,6 @@
 import { CircularProgress, LinearProgress } from '@mui/material'
 import { Layout } from 'common/components/layout/Layout'
+import { useToasts } from 'common/hooks/useToasts'
 import { Circular } from 'common/styles'
 import { authThunk } from 'features/auth'
 import React, { useEffect } from 'react'
@@ -14,11 +15,11 @@ import { Outlet } from 'react-router-dom'
 export default function App() {
     const { appStatus, appInitializing } = useHelpingSelectors()
     const { authMe } = useActions(authThunk)
-
+    useToasts()
+    
     useEffect(() => {
         authMe({})
     }, [])
-
     return appInitializing ? (
         <>
             <AppHeader />

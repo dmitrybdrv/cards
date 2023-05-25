@@ -1,4 +1,4 @@
-const ava = require('./testAva.jpg')
+const ava = require('./ava.png')
 const logo = require('./logo.png')
 const checkMail = require('./check_email.jpg')
 

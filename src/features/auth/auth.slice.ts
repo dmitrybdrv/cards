@@ -26,16 +26,19 @@ const slice = createSlice({
         builder
             .addCase(authThunk.registration.fulfilled, (state, action) => {
                 state.redirect = action.payload.redirect
+                state.info = 'Your Account has been created :)'
             })
 
             .addCase(authThunk.login.fulfilled, (state, action) => {
                 state.profile = action.payload.profile
                 state.isLoggedIn = true
+                state.info = `Welcome ${action.payload.profile.name}!`
             })
 
-            .addCase(authThunk.logout.fulfilled, (state) => {
+            .addCase(authThunk.logout.fulfilled, (state, action) => {
                 state.profile = null
                 state.isLoggedIn = false
+                state.info = action.payload.info
             })
 
             .addCase(authThunk.authMe.fulfilled, (state, action) => {
@@ -55,6 +58,7 @@ const slice = createSlice({
             .addCase(authThunk.updateMe.fulfilled, (state, action) => {
                 state.profile = action.payload.profile
             })
+
     },
 })
 

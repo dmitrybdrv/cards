@@ -6,17 +6,17 @@ import React, { FC } from 'react'
 export const Profile: FC = () => {
 
     return (
-        <div style={{ marginTop: '100px' }}>
+<div style={{ marginTop: '100px' }}>
 
-            <div style={{ position: 'absolute', left: '600px', top: '100px' }}>
-                <LinkTo link={{ title: 'Back to Packs List', path: '/packs' }}
-                        style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: '#000' }}
-                        icon={<ArrowBackIosIcon />}
-                />
-            </div>
+    <div style={{ position: 'absolute', left: '600px', top: '100px' }}>
+        <LinkTo link={{ title: 'Back to Packs List', path: '/packs' }}
+                style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: '#000' }}
+                icon={<ArrowBackIosIcon />}
+        />
+    </div>
 
-            <ProfileCard/>
+    <ProfileCard/>
 
-        </div>
-    )
+</div>
+)
 }

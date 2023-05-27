@@ -12,7 +12,7 @@ import { Outlet } from 'react-router-dom'
 /**
  * Компонент App, отображающий заголовок приложения, индикаторы загрузки и содержимое маршрутов.
  */
-export default function App() {
+export default function App () {
     const { appStatus, appInitializing } = useHelpingSelectors()
     const { authMe } = useActions(authThunk)
     useToasts()

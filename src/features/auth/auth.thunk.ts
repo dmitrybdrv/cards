@@ -1,6 +1,7 @@
 import { appActions } from 'app'
 import { createAppAsyncThunk, path } from 'common/utils'
 import { errorHandler } from 'common/utils/errorUtils'
+import { authActions } from 'features/auth/auth.slice'
 import { authApi } from './auth.api'
 import {
     CreatePassType,
@@ -13,8 +14,9 @@ import {
 
 const registration = createAppAsyncThunk<{ redirect: RedirectType }, DataRegType>(
     'auth/register',
-    async (arg, { rejectWithValue }) => {
+    async (arg, {dispatch, rejectWithValue }) => {
         try {
+            dispatch(authActions.clearInfo())
             await authApi.register(arg)
             return { redirect: path.LOGIN }
         } catch (e) {
@@ -26,8 +28,9 @@ const registration = createAppAsyncThunk<{ redirect: RedirectType }, DataRegType
 
 const login = createAppAsyncThunk<{ profile: UserType }, DataLoginType>(
     'auth/login',
-    async (arg, { rejectWithValue }) => {
+    async (arg, { dispatch, rejectWithValue }) => {
         try {
+            dispatch(authActions.clearInfo())
             const res = await authApi.login(arg)
             return { profile: res.data }
         } catch (e) {
@@ -39,6 +42,7 @@ const login = createAppAsyncThunk<{ profile: UserType }, DataLoginType>(
 
 const logout = createAppAsyncThunk<{ info: string }, void>('auth/logout', async (_, { dispatch, rejectWithValue }) => {
     try {
+        dispatch(authActions.clearInfo())
         const res = await authApi.logout()
         return { info: res.data.info }
     } catch (e) {

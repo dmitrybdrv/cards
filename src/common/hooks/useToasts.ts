@@ -11,6 +11,6 @@ export const useToasts = () => {
         toast.info(appInfo)
     }
     if(info) {
-        toast.info(info)
+        toast.success(info)
     }
 }

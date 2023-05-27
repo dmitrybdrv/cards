@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { StatusType, StringNullType } from 'app/app.types'
-import { pending, rejectedMatcher } from 'common/utils'
+import { rejectedMatcher } from 'common/utils'
 
 /**
  * appReducer - Slice состояния приложения (App)
@@ -11,7 +11,7 @@ const slice = createSlice({
         appErrors: null as StringNullType,
         appInfo: null as StringNullType,
         appInitializing: false as boolean,
-        appStatus: 'idle' as StatusType,
+        appStatus: 'idle' as StatusType
     },
     reducers: {
         setAppError: (state, action: PayloadAction<{ error: StringNullType }>) => {
@@ -25,7 +25,7 @@ const slice = createSlice({
         },
         setAppStatus: (state, action: PayloadAction<{ appStatus: StatusType }>) => {
             state.appStatus = action.payload.appStatus
-        },
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -33,15 +33,13 @@ const slice = createSlice({
                 (action) => {
                     return action.type.endsWith('pending')
                 },
-                (state, action) => {
+                (state) => {
                     state.appInfo = null
                     state.appStatus = 'loading'
                     state.appErrors = null
                 }
             )
-            .addMatcher(pending, () => {
 
-            })
 
             .addMatcher(
                 (action) => {
@@ -53,6 +51,8 @@ const slice = createSlice({
                 }
             )
 
+
+
             .addMatcher(
                 (action) => {
                     return action.type.endsWith('rejected')
@@ -63,11 +63,11 @@ const slice = createSlice({
                 }
             )
             .addMatcher(rejectedMatcher, (state, action) => {
-                if(action.payload) {
+                if (action.payload) {
                     state.appErrors = action.payload
                 }
             })
-    },
+    }
 })
 
 export const { reducer: appReducer, actions: appActions } = slice

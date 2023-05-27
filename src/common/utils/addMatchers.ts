@@ -2,9 +2,7 @@ import { isPending, isRejected } from '@reduxjs/toolkit'
 import { authThunk } from 'features/auth'
 
 export const pending = isPending(authThunk.registration)
-export const rejected = isRejected(
 
-)
 export const rejectedMatcher = isRejected(
     authThunk.registration,
     authThunk.login,

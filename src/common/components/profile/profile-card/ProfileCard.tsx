@@ -1,6 +1,6 @@
+import React, { FC,  } from 'react'
 import { useActions, useHelpingSelectors } from 'common/hooks'
 import { authThunk } from 'features/auth'
-import React, { FC } from 'react'
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined'
 import PermIdentityIcon from '@mui/icons-material/PermIdentity'
 import { Avatar, Paper } from '@mui/material'
@@ -11,9 +11,11 @@ import { TypographyField } from 'common/components/form/typography-field/Typogra
 import { ava } from 'common/image'
 
 export const ProfileCard: FC = () => {
+    console.log('pr card')
     const { logout, updateMe } = useActions(authThunk)
     const { profile } = useHelpingSelectors()
     const onChangeNameHandler = (newName: string) => updateMe({ name: newName })
+
     return (
         <Paper elevation={1} sx={{ textAlign: '-webkit-center', padding: '30px', width: '400px' }}>
             <TypographyField title={'Personal information'} style={{ marginBottom: '30px' }} />

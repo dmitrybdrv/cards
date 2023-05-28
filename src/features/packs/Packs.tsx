@@ -15,10 +15,10 @@ export const Packs: FC = () => {
 
     return (
         <div>
-        <h3>Packs</h3>
-
-    {JSON.stringify(init.map(el => el))}
-
+            <h3>Packs</h3>
+            <div>
+                {JSON.stringify(init.map(el => el))}
+            </div>
         </div>
     )
 }

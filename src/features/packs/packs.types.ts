@@ -7,10 +7,17 @@ export type PacksParamsType = {
     pageCount?: number
     user_id?: string
     block?: boolean
-}
+} | void
 
 export type CardPacksType = {
-    cardPacks: PackType[]
+    cardPacks: PackType[],
+    cardPacksTotalCount: number
+    maxCardsCount: number
+    minCardsCount: number
+    page:number
+    pageCount: number
+    token:string
+    tokenDeathTime:Date
 }
 
 export type PackType = {

@@ -1,18 +1,19 @@
 import { useActions } from 'common/hooks/useActions'
-import { useHelpingSelectors } from 'common/hooks/useHelpingSelectors'
+import { useAppSelector } from 'common/hooks/useAppSelector'
 import { authActions } from 'features/auth'
+import { selectorAuthRedirect } from 'features/auth/auth.selector'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 export const useNavigation = () => {
-    const { clearRedirect } = useActions(authActions)
-    const { redirect } = useHelpingSelectors()
+    const { authClearRedirect } = useActions(authActions)
+    const redirect = useAppSelector(selectorAuthRedirect)
     const navigate = useNavigate()
 
     useEffect(() => {
         if (redirect !== '/') {
             return navigate(redirect)
         }
-        clearRedirect()
+        authClearRedirect()
     }, [redirect])
 }

@@ -1,12 +1,13 @@
 import { CheckBox, EmailInput, Form, LinkTo, PasswordInput } from 'common/components'
 import { useAuthForm } from 'common/hooks/useAuthForm'
-import React, { FC } from 'react'
+import React from 'react'
 
 /**
  * SignIn - компонет логинизации в приложении
  */
-export const SignIn: FC = () => {
-    const { register, handleSubmit, errors, onLogin } = useAuthForm(['emailSignIn', 'passwordSignIn'])
+export const SignIn = () => {
+    const { register, handleSubmit, errors, disabledButton, onLogin } = useAuthForm(['emailSignIn', 'passwordSignIn'])
+
 
     return (
         <Form
@@ -14,7 +15,9 @@ export const SignIn: FC = () => {
             btnName={'Sign in'}
             onSubmit={handleSubmit(onLogin)}
             link={{ path: '/auth/register', name: 'Sign Up' }}
-            description={'Don`t have an account?'}>
+            description={'Don`t have an account?'}
+            disabledButton={disabledButton}
+        >
             <EmailInput register={register} errors={errors} name={'emailSignIn'} />
 
             <PasswordInput label={'Password'} register={register} errors={errors} name={'passwordSignIn'} />

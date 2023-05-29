@@ -23,7 +23,6 @@ export type UserType = {
     'tokenDeathTime': number
     'avatar': null | string
 }
-
 export type DataLoginType = {
     email: string
     password: string

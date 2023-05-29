@@ -1,5 +1,4 @@
-import axios, { AxiosError, isAxiosError } from 'axios'
-import { appActions, AppDispatch } from 'app'
+import { AxiosError, isAxiosError } from 'axios'
 
 /**
  * Обрабатывает ошибки, возникающие при отправке запросов на сервер

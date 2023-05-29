@@ -8,6 +8,7 @@ import React, { FC } from 'react'
  */
 export const ForgotPassword: FC = () => {
     const { errors, register, handleSubmit, onAuthForgot } = useAuthForm(['email'])
+
     useNavigation()
     return (
         <Form

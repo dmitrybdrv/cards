@@ -1,9 +1,9 @@
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import { LinkTo } from 'common/components/index'
 import { ProfileCard } from 'common/components/profile/profile-card/ProfileCard'
-import React, { FC } from 'react'
+import React from 'react'
 
-export const Profile: FC = () => {
+export const Profile = () => {
 
     return (
         <div style={{ marginTop: '100px' }}>

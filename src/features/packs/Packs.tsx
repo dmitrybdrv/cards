@@ -1,24 +1,34 @@
-import { packsApi } from 'features/packs/packs.api'
-import React, { FC, useEffect, useState } from 'react'
+import { CircularProgress } from '@mui/material'
+import { selectorAppStatus } from 'app/app.selectors'
+import { useActions, useAppSelector } from 'common/hooks'
+import { Circular } from 'common/styles'
+import { selectorPacks } from 'features/packs/packs.selectors'
+import { packsThunk } from 'features/packs/packs.slice'
+import React, { useEffect } from 'react'
 
 
-export const Packs: FC = () => {
-    const [init, setInit] = useState([{}])
+export const Packs = () => {
+    const appStatus = useAppSelector(selectorAppStatus)
+    const packs = useAppSelector(selectorPacks)
+    const { getPacks } = useActions(packsThunk)
 
     useEffect(() => {
-        packsApi.getPacks()
-            .then((res) => {
-                console.log(res)
-                setInit(res.data.cardPacks)
-            })
+        getPacks()
     }, [])
+
 
     return (
         <div>
             <h3>Packs</h3>
-            <div>
-                {JSON.stringify(init.map(el => el))}
-            </div>
+           <div>{appStatus === 'loading'
+                    ?  <Circular><CircularProgress /></Circular>
+                    :  packs ? packs.cardPacks.map(el => {
+                    return (
+                        <ul key={el._id}>
+                            <li>{el.name}</li>
+                        </ul>
+                    )
+                }): 'No any packs...'}</div>
         </div>
     )
 }

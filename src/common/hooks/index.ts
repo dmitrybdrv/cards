@@ -1,6 +1,5 @@
 export * from './useAppDispatch'
 export * from './useAppSelector'
 export * from './useAuthForm'
-export * from './useHelpingSelectors'
 export * from './useActions'
 export * from './useNavigation'

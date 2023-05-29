@@ -15,6 +15,7 @@ export type ValidateFieldsType =
  * @param fields - поля принимаемые для  валидации данных
  */
 export const getFields = (fields: ValidateFieldsType[]) => {
+
     let validationSchema = yup.object().shape({})
 
     for (const field of fields) {
@@ -43,21 +44,21 @@ export const getFields = (fields: ValidateFieldsType[]) => {
             validationSchema = validationSchema.shape({
                 password: string()
                     .required('Title is required')
-                    .min(4, 'Password should be more than 4 symbol')
+                    .min(8, 'Password should be more than 7 symbol')
                     .max(50, 'To much symbols'),
             })
         } else if (field === 'passwordSignIn') {
             validationSchema = validationSchema.shape({
                 passwordSignIn: string()
                     .required('Title is required')
-                    .min(4, 'Password should be more than 4 symbol')
+                    .min(8, 'Password should be more than 7 symbol')
                     .max(50, 'To much symbols'),
             })
         } else if (field === 'passwordSignUp') {
             validationSchema = validationSchema.shape({
                 passwordSignUp: string()
                     .required('Title is required')
-                    .min(4, 'Password should be more than 4 symbol')
+                    .min(8, 'Password should be more than 7 symbol')
                     .max(50, 'To much symbols'),
             })
         } else if (field === 'confirmPassword') {

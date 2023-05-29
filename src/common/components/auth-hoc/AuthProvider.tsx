@@ -1,13 +1,13 @@
-import { SignIn } from 'features/auth'
-import React, { FC } from 'react'
-import { Navigate, Outlet } from 'react-router-dom'
-import { useHelpingSelectors } from 'common/hooks'
+import { useAppSelector} from 'common/hooks'
 import { path } from 'common/utils'
+import { selectorAuthIsLoggedIn } from 'features/auth/auth.selector'
+import React from 'react'
+import { Navigate, Outlet } from 'react-router-dom'
 
 /**
  * AuthProvider - компонент (обёртка), отображающий маршрутизацию в зависимости от параметра авторизации.
  */
-export const AuthProvider: FC = () => {
-    const { isLoggedIn } = useHelpingSelectors()
+export const AuthProvider =() => {
+    const isLoggedIn = useAppSelector(selectorAuthIsLoggedIn)
     return isLoggedIn ? <Navigate to={path.PACKS} /> : <Outlet />
 }

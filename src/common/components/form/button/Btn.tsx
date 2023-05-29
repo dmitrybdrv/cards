@@ -6,10 +6,11 @@ import LogoutIcon from '@mui/icons-material/Logout';
 type PropsType = {
     onButtonRedirect?: string
     btnName: string
-    callBack?: (a: unknown) => Promise<any>
+    callBack?: (a: unknown) => void
     btnColor?: ColorBtnType
     textColor?: ColorBtnType
     icon?: boolean
+    disabledButton?: boolean
 }
 /**
  * Btn - компонент - кнопка (из библиотеки MUI). Возможность переиспользованя в качестве: кнопки перехода по переданному пути, либо отправляющей данные формы
@@ -18,11 +19,13 @@ type PropsType = {
  * @param {string} color - цвет кнопки
  * @param {Function} callBack - функция выполняемая по клику (опционально)
  */
-export const Btn: FC<PropsType> = ({ onButtonRedirect, btnName, callBack, btnColor='primary', textColor='#fff', icon }) => {
+export const Btn: FC<PropsType> = ({ onButtonRedirect, btnName, callBack, btnColor='primary', textColor='#fff', icon, disabledButton }) => {
 
     const clickHandler = () => {
         callBack && callBack('')
     }
+
+
     return (
         <Button
             variant={'contained'}
@@ -31,6 +34,7 @@ export const Btn: FC<PropsType> = ({ onButtonRedirect, btnName, callBack, btnCol
             href={onButtonRedirect}
             onClick={clickHandler}
             startIcon={icon && <LogoutIcon/>}
+            disabled={disabledButton ? disabledButton : false}
         >
             {btnName}
         </Button>

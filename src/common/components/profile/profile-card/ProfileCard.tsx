@@ -1,10 +1,11 @@
-import React, { FC } from 'react'
+import { selectorAuthProfile } from 'features/auth/auth.selector'
+import React from 'react'
 import { styled } from '@mui/material/styles'
 import { Avatar, Paper, Stack, Badge } from '@mui/material'
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined'
 import PermIdentityIcon from '@mui/icons-material/PermIdentity'
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
-import { useActions, useHelpingSelectors } from 'common/hooks'
+import { useActions, useAppSelector, useAuthForm } from 'common/hooks'
 import { EditableSpan } from 'common/components/editable-span/EditableSpan'
 import { AnnotationField } from 'common/components/form/anotation-field/AnotationField'
 import { Btn } from 'common/components/form/button/Btn'
@@ -12,10 +13,14 @@ import { TypographyField } from 'common/components/form/typography-field/Typogra
 import { ava } from 'common/image'
 import { authThunk } from 'features/auth'
 
-export const ProfileCard: FC = () => {
-    const { logout, updateMe } = useActions(authThunk)
-    const { profile } = useHelpingSelectors()
+export const ProfileCard = () => {
+    const { updateMe } = useActions(authThunk)
+    const { onLogOut } = useAuthForm([])
+    const  profile  = useAppSelector(selectorAuthProfile)
+
     const onChangeNameHandler = (newName: string) => updateMe({ name: newName })
+    const logOutHandler = () => onLogOut()
+
     const SmallAvatar = styled(Avatar)(({ theme }) => ({
         width: 28,
         height: 28,
@@ -46,7 +51,7 @@ export const ProfileCard: FC = () => {
                 icon={<CreateOutlinedIcon />}
             />
             <AnnotationField description={profile?.email} />
-            <Btn btnName={'Log out'} callBack={logout} btnColor={'#fff'} textColor={'#000'} icon />
+            <Btn btnName={'Log out'} callBack={logOutHandler} btnColor={'#fff'} textColor={'#000'} icon />
         </Paper>
     )
 }

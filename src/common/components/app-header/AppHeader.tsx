@@ -1,8 +1,9 @@
 import { AppBar, Avatar, Toolbar, Typography } from '@mui/material'
 import { Btn } from 'common/components/form/button/Btn'
-import { useActions, useHelpingSelectors } from 'common/hooks'
+import { useActions, useAppSelector } from 'common/hooks'
 import logo from 'common/image/logo.png'
 import { authThunk } from 'features/auth'
+import { selectorAuthIsLoggedIn, selectorAuthProfile } from 'features/auth/auth.selector'
 import React, { FC } from 'react'
 import { path } from 'common/utils'
 import { ava } from 'common/image'
@@ -12,8 +13,10 @@ import PermIdentityIcon from '@mui/icons-material/PermIdentity';
  * Компонент AppHeader, отображающий заголовок всего приложения.
  */
 export const AppHeader: FC = () => {
-    const { profile, isLoggedIn } = useHelpingSelectors()
+    const profile = useAppSelector(selectorAuthProfile)
+    const isLoggedIn = useAppSelector(selectorAuthIsLoggedIn)
     const { logout } = useActions(authThunk)
+
     return (
         <AppBar position='static' color={'default'}>
             <Toolbar style={{ justifyContent: 'space-between' }}>
@@ -34,7 +37,7 @@ export const AppHeader: FC = () => {
                         </Avatar>
                     </div>
                     :
-                    <div style={{ marginRight: '100px' }}><Btn btnName={'LOGIN'} onButtonRedirect={path.LOGIN} /></div>}
+                    <div style={{ marginRight: '100px' }}><Btn btnName={'LOGIN'} onButtonRedirect={path.LOGIN}/></div>}
             </Toolbar>
         </AppBar>
     )

@@ -1,13 +1,31 @@
-import { isPending, isRejected } from '@reduxjs/toolkit'
+import { isFulfilled, isPending, isRejected } from '@reduxjs/toolkit'
 import { authThunk } from 'features/auth'
 
-export const pending = isPending(authThunk.registration)
-
-export const rejectedMatcher = isRejected(
+export const pendingMatchers = isPending(
+    authThunk.authMe,
     authThunk.registration,
     authThunk.login,
-    authThunk.authForgot,
     authThunk.logout,
+    authThunk.authForgot,
     authThunk.createPass,
     authThunk.updateMe,
 )
+export const fulfilledMatchers = isFulfilled(
+    authThunk.registration,
+    authThunk.login,
+    authThunk.logout,
+    authThunk.authForgot,
+    authThunk.createPass,
+    authThunk.updateMe,
+)
+export const rejectedMatchers = isRejected(
+    authThunk.registration,
+    authThunk.login,
+    authThunk.logout,
+    authThunk.authForgot,
+    authThunk.createPass,
+    authThunk.updateMe,
+)
+//authMe
+export const authMeFulfilled = isFulfilled(authThunk.authMe)
+export const authMeRejected = isRejected(authThunk.authMe)

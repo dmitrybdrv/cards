@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { appActions } from 'app'
+import { RedirectType } from 'common/common.types'
 import { createAppAsyncThunk, path } from 'common/utils'
 import { errorHandler } from 'common/utils/errorUtils'
 import { authApi } from 'features/auth/auth.api'
@@ -9,7 +10,6 @@ import {
     DataRegType,
     DataUpdateType,
     ForgotPassType,
-    RedirectType,
     UserType
 } from 'features/auth/auth.types'
 

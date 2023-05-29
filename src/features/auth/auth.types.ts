@@ -59,14 +59,3 @@ export type CreatePassType = {
     password: string
     resetPasswordToken: string
 }
-export type RedirectType =
-    | '/'
-    | '/auth/login'
-    | '/auth/register'
-    | '/auth/check-email'
-    | '/auth/forgot-password'
-    | '/auth/create-new-password'
-    | '/packs'
-    | '/profile'
-    | '/cards'
-    | '/learn'

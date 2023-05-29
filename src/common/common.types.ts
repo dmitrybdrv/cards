@@ -1,1 +1,12 @@
 export type ColorBtnType = '#000' | '#fff'
+export type RedirectType =
+    | '/'
+    | '/auth/login'
+    | '/auth/register'
+    | '/auth/check-email'
+    | '/auth/forgot-password'
+    | '/auth/create-new-password'
+    | '/packs'
+    | '/profile'
+    | '/cards'
+    | '/learn'

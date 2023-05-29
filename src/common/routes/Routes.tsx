@@ -49,6 +49,7 @@ export const router = createBrowserRouter([
                 element: <RequireAuth />,
                 children: [
                     {
+                        index: true,
                         path: path.PACKS,
                         element: <Packs />, //колоды
                     },

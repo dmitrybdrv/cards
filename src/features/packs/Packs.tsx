@@ -1,11 +1,11 @@
-import { CircularProgress } from '@mui/material'
+import { CircularProgress, Input } from '@mui/material'
 import { selectorAppStatus } from 'app/app.selectors'
+import { Btn, TypographyField } from 'common/components'
 import { useActions, useAppSelector } from 'common/hooks'
 import { Circular } from 'common/styles'
 import { selectorPacks } from 'features/packs/packs.selectors'
 import { packsThunk } from 'features/packs/packs.slice'
 import React, { useEffect } from 'react'
-
 
 export const Packs = () => {
     const appStatus = useAppSelector(selectorAppStatus)
@@ -16,19 +16,22 @@ export const Packs = () => {
         getPacks()
     }, [])
 
-
     return (
         <div>
-            <h3>Packs</h3>
-           <div>{appStatus === 'loading'
-                    ?  <Circular><CircularProgress /></Circular>
-                    :  packs ? packs.cardPacks.map(el => {
-                    return (
-                        <ul key={el._id}>
-                            <li>{el.name}</li>
-                        </ul>
-                    )
-                }): 'No any packs...'}</div>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <TypographyField title={'Packs list'} style={{ textAlign: 'start', padding: '20px' }} />
+                <Btn btnName={'Add new pack'} />
+            </div>
+
+            <div>
+                {appStatus === 'loading' ? (
+                    <Circular>
+                        <CircularProgress />
+                    </Circular>
+                ) : (
+                    <div></div>
+                )}
+            </div>
         </div>
     )
 }

@@ -5,7 +5,7 @@ import { CheckEmail, CreateNewPassword, ForgotPassword, SignIn, SignUp } from 'f
 import { Cards } from 'features/cards/Cards'
 import { Learn } from 'features/learn/Learn'
 import { Packs } from 'features/packs/Packs'
-import { Profile } from 'common/components/profile/Profile'
+import { Profile } from 'features/profile/Profile'
 import React from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 
@@ -16,7 +16,7 @@ export const router = createBrowserRouter([
     {
         path: path.MAIN,
         element: <App />,
-        errorElement: <ErrorPage/>,
+        errorElement: <ErrorPage />,
         children: [
             {
                 path: path.AUTH,
@@ -68,6 +68,5 @@ export const router = createBrowserRouter([
                 ],
             },
         ],
-
     },
 ])

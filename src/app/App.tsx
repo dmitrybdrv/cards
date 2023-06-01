@@ -36,4 +36,5 @@ export default function App() {
         </Circular>
     )
 }
+//TODO наладить prettier + eslint
 

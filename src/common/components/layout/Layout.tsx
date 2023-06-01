@@ -10,8 +10,8 @@ type PropsType = {
  */
 export const Layout: React.FC<PropsType> = ({ children }) => {
     return (
-        <Grid container style={{ justifyContent: 'center', background: 'red', height: '90vh' }}>
-            <Grid item xs={8} style={{ background: 'blue' }}>
+        <Grid container style={{ justifyContent: 'center', background: '#b2bbb2', height: '90vh' }}>
+            <Grid item xs={8} style={{ background: '#ece8e8' }}>
                 {children}
             </Grid>
         </Grid>

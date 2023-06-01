@@ -8,11 +8,10 @@ import { Navigate, Outlet } from 'react-router-dom'
  * RequireAuth компонент (обёртка), отображающий маршрутизацию в зависимости от параметра авторизации.
  */
 export const RequireAuth = () => {
-    const isLoggedIn = useAppSelector(selectorAuthIsLoggedIn);
+    const isLoggedIn = useAppSelector(selectorAuthIsLoggedIn)
 
-    return isLoggedIn ? (
-        <Outlet />
-    ) : (
-        <Navigate to={path.LOGIN} replace={true} />
-    );
+    if (!isLoggedIn) {
+        return <Navigate to={path.LOGIN} />
+    }
+    return <Outlet />
 }

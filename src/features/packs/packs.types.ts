@@ -38,3 +38,5 @@ export type PackType = {
   more_id: string;
   __v: number;
 };
+
+export type TabsType = 'My' | 'All'

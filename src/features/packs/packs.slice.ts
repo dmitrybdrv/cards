@@ -7,7 +7,7 @@ import { CardPacksType, PacksParamsType } from 'features/packs/packs.types'
 const getPacks = createAppAsyncThunk<CardPacksType, PacksParamsType>
 ('packs/getPacks', async (arg, { rejectWithValue }) => {
     try {
-        const res = await packsApi.getPacks()
+        const res = await packsApi.getPacks(arg)
         return res.data
     } catch (e) {
         const err = errorHandler(e)

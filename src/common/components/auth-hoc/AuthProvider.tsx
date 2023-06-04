@@ -11,7 +11,7 @@ export const AuthProvider = () => {
     const isLoggedIn = useAppSelector(selectorAuthIsLoggedIn)
 
     if (isLoggedIn) {
-        return <Navigate to={path.PACKS} replace />
+        return <Navigate to={path.PACKS}/>
     }
     return <Outlet />
 }

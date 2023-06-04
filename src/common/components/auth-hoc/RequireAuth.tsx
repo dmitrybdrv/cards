@@ -11,7 +11,7 @@ export const RequireAuth = () => {
     const isLoggedIn = useAppSelector(selectorAuthIsLoggedIn)
 
     if (!isLoggedIn) {
-        return <Navigate to={path.LOGIN} />
+        return <Navigate to={path.LOGIN}/>
     }
     return <Outlet />
 }

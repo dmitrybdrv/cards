@@ -1,31 +1,35 @@
-import { Tab, Tabs } from "@mui/material";
+import {Tab, Tabs} from "@mui/material";
 import Box from "@mui/material/Box";
 import React, {useEffect, useState} from "react";
 import {useActions} from "../../hooks";
 import {packsThunk, TabsType} from "../../../features/packs";
 
-export const CardsChanger: React.FC<any> = ({}) => {
-  const [value, setValue] = useState<TabsType>('All')
-    const {getPacks} = useActions(packsThunk);
+type PropsType = {
+    setCardsValue: (value: TabsType) => void
+    onCardsChanger: (userId: { user_id: string }) => void
+    cardsValue: TabsType
+}
 
-  const handleChange = (event: React.SyntheticEvent, newValue: TabsType) => setValue(newValue)
+export const CardsChanger: React.FC<PropsType> = ({setCardsValue, cardsValue, onCardsChanger}) => {
 
-  useEffect(() => {
-      if(value === 'My') {
-          getPacks({user_id: '64551359c19c911fb48f5fb8'})
-      } else if (value === 'All') {
-          getPacks({})
-      }
-  }, [value])
+    const handleChange = (event: React.SyntheticEvent, newValue: TabsType) => setCardsValue(newValue)
 
-  return (
-    <Box sx={{ display: "grid", height: "100%" }}>
-      <label>{"Show packs cards"}</label>
+    useEffect(() => {
+        if (cardsValue === 'My') {
+            onCardsChanger({user_id: '64551359c19c911fb48f5fb8'})
+        } else if (cardsValue === 'All') {
+            onCardsChanger({user_id: ''})
+        }
+    }, [cardsValue])
 
-      <Tabs value={value} onChange={handleChange}>
-        <Tab label={"My"} value={'My'}/>
-        <Tab label={"All"} value={'All'}/>
-      </Tabs>
-    </Box>
-  );
+    return (
+        <Box sx={{display: "grid", height: "100%"}}>
+            <label>{"Show packs cards"}</label>
+
+            <Tabs value={cardsValue} onChange={handleChange}>
+                <Tab label={"My"} value={'My'}/>
+                <Tab label={"All"} value={'All'}/>
+            </Tabs>
+        </Box>
+    );
 };
